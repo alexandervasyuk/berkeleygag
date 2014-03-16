@@ -20,4 +20,5 @@ Feature: User Registration
 		Given I am a guest
 		When I fill out the form with invalid data
 		Then I should not be registered in the application
-		And I should be presented with register form again 
+		And I should know what went wrong
+		And I should be presented with register form again

@@ -6,8 +6,15 @@ class UsersController < ApplicationController
 
 	def create
 		@user = User.new(user_params)
-		@user.save
-		redirect_to root_path
+		if @user.save
+			session[:user_id] = @user.id
+			UserMailer.confirm(@user.email).deliver
+			flash[:success] = "Nice, bro. Now check your email to confirm your account"
+			redirect_to root_path
+		else 
+			flash.now[:error] = "Invalid input bro, you ought to be a berkeley student"
+			render :new
+		end
 	end
 
 private

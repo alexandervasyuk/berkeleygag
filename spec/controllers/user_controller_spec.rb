@@ -25,7 +25,7 @@ describe UsersController do
 		let!(:user) {stub_model(User)}
 		let(:params) do
 			{
-				"email"=>"john@berkeley.edu",
+				"email"=>"alexander.vasyuk@berkeley.edu",
 				"password"=>"pass",
 				"password_confirmation"=>"pass"
 			}
@@ -45,14 +45,49 @@ describe UsersController do
 		end
 
 		context "save message returns true" do
+			let(:email) {double("Message", deliver:true)}
 			before :each do
-				User.stub(:save).and_return(true)
+				user.stub(:save).and_return(true)
+				UserMailer.stub(:confirm).and_return(email)
 			end
 
 			it "should redirect home" do
 				post :create, user:params
 				expect(response).to redirect_to root_path
-			end	
+			end
+
+			it "assign success message" do
+				post :create, user:params
+				expect(flash[:success]).not_to be_nil
+			end
+			it "logs in user" do
+				post :create, user:params
+				expect(session[:user_id]).to eq(user.id)
+			end
+			it "send email with confirmation link" do
+				UserMailer.should_receive(:confirm).with(params[:email])
+				email.should_receive(:deliver)
+				post :create, user:params
+			end
+		end
+
+		context "save message return false" do
+			before :each do
+				user.stub(:save).and_return(false)
+			end
+
+			it "renders new tempalte" do
+				post :create, user:params
+				expect(response).to render_template :new
+			end
+			it "assigns @user variable" do
+				post :create, user:params
+				expect(assigns[:user]).not_to be_nil
+			end
+			it "assigns error flash message" do
+				post :create, user:params
+				expect(flash[:error]).not_to be_nil
+			end
 		end
 	end
 end
