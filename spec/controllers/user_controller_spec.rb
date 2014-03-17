@@ -1,6 +1,10 @@
 require 'spec_helper'
 
 describe UsersController do
+	let!(:user) {
+		stub_model(User, {email:"alex@berkeley.edu", 
+			password:"pass", password_confirmation:"pass", confirmation_code:"123"})
+	}
 	
 	describe "GET new" do
 		let!(:user) {stub_model(User).as_new_record}
@@ -22,7 +26,7 @@ describe UsersController do
 	end
 
 	describe "POST create" do
-		let!(:user) {stub_model(User)}
+		let!(:user) {stub_model(User, params)}
 		let(:params) do
 			{
 				"email"=>"alexander.vasyuk@berkeley.edu",
@@ -45,6 +49,7 @@ describe UsersController do
 		end
 
 		context "save message returns true" do
+
 			let(:email) {double("Message", deliver:true)}
 			before :each do
 				user.stub(:save).and_return(true)
@@ -65,7 +70,7 @@ describe UsersController do
 				expect(session[:user_id]).to eq(user.id)
 			end
 			it "send email with confirmation link" do
-				UserMailer.should_receive(:confirm).with(params[:email])
+				UserMailer.should_receive(:confirm).with(user)
 				email.should_receive(:deliver)
 				post :create, user:params
 			end
@@ -88,6 +93,30 @@ describe UsersController do
 				post :create, user:params
 				expect(flash[:error]).not_to be_nil
 			end
+		end
+	end
+
+	describe "GET confirm" do
+		before :each do
+			User.stub(:find_by_confirmation_code).and_return(user)
+			user.stub(:confirm).and_return(true)
+		end
+
+		it "should find the user by its token" do
+			User.should_receive(:find_by_confirmation_code).with(user.confirmation_code)
+			get :confirm, token:user.confirmation_code
+		end
+		it "should confirm user" do
+			user.should_receive(:confirm).with(user.confirmation_code)
+			get :confirm, token:user.confirmation_code
+		end
+		it "has a flash with success" do
+			get :confirm, token:user.confirmation_code
+			expect(flash[:success]).not_to be_nil
+		end
+		it "redirects to root url" do
+			get :confirm, token:user.confirmation_code
+			expect(response).to redirect_to root_path
 		end
 	end
 end

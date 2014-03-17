@@ -5,16 +5,19 @@ Feature: User Registration
 
 	Scenario: A new user fills out the form with valid data
 		Given I am a guest
-		When I fill out the register form with valid data
-		Then I should be partially registered in the application
-		And I should be logged in
-		And I should receive confirmation email
-		But I should not have access to posting photos
+		When I fill out the register form with "alexander.vasyuk@berkeley.edu" valid data
+		Then I should be partially registered in the application with "alexander.vasyuk@berkeley.edu"
+		And I should be logged in as "alexander.vasyuk@berkeley.edu"
+		And I should receive confirmation email to "alexander.vasyuk@berkeley.edu"
+		But I as user "alexander.vasyuk@berkeley.edu" should not have full priviliges
 
 	Scenario: Partially registered user confirms his email
-		Given I am partially registered user
-		When I confirm my email
-		Then I should have access to posting photos
+		Given I am partially registered user "alexander.vasyuk@berkeley.edu"
+		And I received an email at "alexander.vasyuk@berkeley.edu"
+		When I open the email
+		Then I should see "Confirm your registration" in the email body
+		When I follow "Confirm your registration" link in the email body
+		Then I should have full priviliges as "alexander.vasyuk@berkeley.edu" user
 
 	Scenario: A new user fails to register
 		Given I am a guest

@@ -2,15 +2,15 @@ require 'spec_helper'
 
 describe User do
 	let(:user) {stub_model(User)}
+	before :each do
+		@params = {
+			email: "joe@berkeley.edu",
+			password: "pass",
+			password_confirmation: "pass"
+		}
+	end
 
 	describe "validations" do
-		before :each do
-			@params = {
-				email: "joe@berkeley.edu",
-				password: "pass",
-				password_confirmation: "pass"
-			}
-		end
 
 		it { should validate_presence_of(:email) }
 		it { should validate_uniqueness_of(:email) }
@@ -29,6 +29,7 @@ describe User do
 		user.email = "email@email.com"
 		expect(user.email).to eq("email@email.com")
 	end
+
 	it "responds to password" do
 		user.password = "pass"
 		expect(user.password).to eq("pass")
@@ -36,5 +37,23 @@ describe User do
 	it "responds to password_confirmation" do
 		user.password_confirmation = "pass"
 		expect(user.password_confirmation).to eq("pass")
+	end
+
+	it "has confirmation_code" do
+		user.confirmation_code = "Some code"
+		expect(user.confirmation_code).to eq("Some code")
+	end
+
+	it "sets confirmation_code to a randomly generated SHA1 token when user is saved" do
+		user = User.new(@params)
+		user.save
+		expect(user.confirmation_code).not_to be_nil
+	end
+
+	it "saves changed to the user when confirm is called" do
+		user = User.create(email:"alex@berkeley.edu", 
+			password:"pass", password_confirmation:"pass")
+		user.should_receive(:save)
+		user.confirm(user.confirmation_code)
 	end
 end

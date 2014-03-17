@@ -2,45 +2,54 @@
 Given(/^I am a guest$/) do
 end
 
-When(/^I fill out the register form with valid data$/) do
+When /^I fill out the register form with "(.*?)" valid data$/ do |email|
   visit("/signup")
-  fill_in "user_email", with:"alexander.vasyuk@berkeley.edu"
+  fill_in "user_email", with:email
   fill_in "user_password", with:"pass"
   fill_in "user_password_confirmation", with:"pass"
   click_button "Sign up"
 end
 
-Then(/^I should be partially registered in the application$/) do
-  # Yet i do not take into account partiallity
-  expect(User.find_by_email("alexander.vasyuk@berkeley.edu")).not_to be_nil
+Then /^I should be partially registered in the application with "(.*?)"$/ do |email| 
+  user = User.find_by_email(email)
+  expect(user).not_to be_nil
+  expect(user.confirmation_code).not_to be_nil
 end
 
-Then(/^I should be logged in$/) do
-  expect(page).to have_content("Welcome, alexander.vasyuk@berkeley.edu")
+Then /^I should be logged in as "(.*?)"$/ do |email|
+  expect(page).to have_content("Welcome, #{email}")
 end
 
-Then(/^I should receive confirmation email$/) do
-  expect(unread_emails_for("alexander.vasyuk@berkeley.edu").size).to eq(1)
+Then /^I should receive confirmation email to "(.*?)"$/ do |email|
+  expect(unread_emails_for(email).size).to eq(1)
 end
 
-Then(/^I should not have access to posting photos$/) do
-  pending # express the regexp above with the code you wish you had
+Then /^I as user "(.*?)" should not have full priviliges$/ do |email|
+  expect(User.find_by_email(email).confirmation_code).not_to eq("Verified")
 end
 
 # Partially registered user
 
-Given(/^I am partially registered user$/) do
-  pending # express the regexp above with the code you wish you had
+Given /^I am partially registered user "(.*?)"$/ do |email|
+  step "I fill out the register form with \"#{email}\" valid data"
+  expect(User.find_by_email(email).confirmation_code).not_to eq("Verified")
 end
 
-When(/^I confirm my email$/) do
-  pending # express the regexp above with the code you wish you had
+Given /^I received an email at "(.*?)"$/ do |email|
+  expect(unread_emails_for(email).size).to eq(1)
 end
 
-Then(/^I should have access to posting photos$/) do
-  pending # express the regexp above with the code you wish you had
+Then /^I should see "(.*?)" link in the email body$/ do |link|
+  expect(current_email).to have_body_text("#{link}")
 end
 
+When /^I follow "(.*?)" link in the email body$/ do |link|
+  visit_in_email(link)
+end
+
+Then /^I should have full priviliges as "(.*?)" user$/ do |email|
+  expect(User.find_by_email(email).confirmation_code).to eq("Verified")
+end
 # New user fills out form with invalid data
 
 When(/^I fill out the form with invalid data$/) do

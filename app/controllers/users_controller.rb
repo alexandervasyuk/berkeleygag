@@ -8,12 +8,24 @@ class UsersController < ApplicationController
 		@user = User.new(user_params)
 		if @user.save
 			session[:user_id] = @user.id
-			UserMailer.confirm(@user.email).deliver
-			flash[:success] = "Nice, bro. Now check your email to confirm your account"
+			UserMailer.confirm(@user).deliver
+			flash[:success] = "Nice, bro. To gain full priviliges, check your email"
 			redirect_to root_path
 		else 
 			flash.now[:error] = "Invalid input bro, you ought to be a berkeley student"
 			render :new
+		end
+	end
+
+	def confirm
+		user = User.find_by_confirmation_code(params[:token])
+
+		if user && user.confirm(params[:token])
+			flash[:success] = "You account is verified. You can now post"
+			redirect_to root_path
+		else
+			flash[:error] = "Why you contriving bro"
+			redirect_to root_path
 		end
 	end
 

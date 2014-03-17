@@ -1,7 +1,8 @@
 class UserMailer < ActionMailer::Base
 	default from: "registration@berkeleygag.com"
 
-	def confirm(email)
-		mail( to: email, subject: "BerkeleyGag registration" )
+	def confirm(user)
+		@user = user
+		mail( to: @user.email, subject: "BerkeleyGag registration" )
 	end
 end
