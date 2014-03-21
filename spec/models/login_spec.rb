@@ -4,12 +4,11 @@ describe Login do
 	let(:login) {Login.new}
 
 	describe "#authenticate" do
-		before :each do
-			User.create(id:1, email:"alex@berkeley.edu", password:"pass", password_confirmation:"pass")
-		end
+		let!(:user) { User.create(email:"alex@berkeley.edu", password:"pass", password_confirmation:"pass") }
+		
 		it "returns user_id if credentials are valid" do
-			login = Login.new(email:"alex@berkeley.edu", password:"pass")
-			expect(login.authenticate).to eq(1)
+			login = Login.new(email:user.email, password:user.password)
+			expect(login.authenticate).to eq(user.id)
 		end
 		it "returns nil if email is invalid" do
 			login = Login.new(email:"alex@gmail.com", password:"pass")

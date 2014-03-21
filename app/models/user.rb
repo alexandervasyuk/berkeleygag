@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
 	has_secure_password
+
+	has_many :posts
 	
 	VALID_EMAIL_REGEX = /\b(?:(?![_.-])(?!.*[_.-]{2})[a-z0-9_.-]+(?<![_.-]))@(?:(?!-)(?!.*--)[a-z0-9-]+(?<!-)\.)*berkeley\.edu\b/i
 

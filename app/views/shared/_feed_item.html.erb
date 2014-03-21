@@ -1,0 +1,14 @@
+<li id="<%= feed_item.id %>" class="feed_item">
+	<div class="title"><%= feed_item.title %></div>
+	<div class="photo">
+		<% if feed_item.photo? %>
+			<%= image_tag feed_item.photo.url, width:620%>
+		<% end %>
+	</div>
+    <div class="user">
+    <%= link_to feed_item.user.email, feed_item.user %>
+    </div>
+    <div class="timestamp">
+      Posted <%= time_ago_in_words(feed_item.created_at) %> ago.
+    </div>
+</li>

@@ -1,0 +1,17 @@
+<div class="row">
+	<aside class="span4">
+		<%if signed_in?%>
+			<section>
+				<h2>Post</h2>
+				<%= render 'shared/post_form'%>
+			</section>
+		<%end%>
+	</aside>
+
+	<div class="span8">
+		<section id="feed">
+			<h2>Feed</h2>
+			<%= render 'shared/feed'%>
+		</section>
+	</div>
+</div>

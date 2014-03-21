@@ -3,6 +3,7 @@ Berkeleygag::Application.routes.draw do
 
   resources :users
   resources :sessions
+  resources :posts
 
   get "signup", to:"users#new"
   get "signin", to:"sessions#new"

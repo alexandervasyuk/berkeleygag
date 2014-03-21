@@ -1,0 +1,13 @@
+<li id="<%= post.id %>" class="post">
+	<div class="title"><%= post.title %></div>
+	<div class="photo">
+		<% if post.photo? %>
+			<%= image_tag post.photo.url, width:620%>
+		<% end %>
+	</div>
+	<%if current_user?(post.user)%>
+		<%= link_to "delete", post, method: :delete,
+				data: { confirm: "You sure?" },
+				title: post.title %>
+	<%end%>
+</li>

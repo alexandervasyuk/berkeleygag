@@ -1,0 +1,12 @@
+<div class="row">
+  <aside class="span4">
+  </aside>
+  <div class="span8">
+    <% if @user.posts.any? %>
+      <h3>Your posts (<%= @user.posts.count %>)</h3>
+      <ol class="posts">
+        <%= render @posts %>
+      </ol>
+    <% end %>
+  </div>
+</div>

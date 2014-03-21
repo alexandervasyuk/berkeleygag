@@ -1,10 +1,7 @@
 require 'spec_helper'
 
 describe UsersController do
-	let!(:user) {
-		stub_model(User, {email:"alex@berkeley.edu", 
-			password:"pass", password_confirmation:"pass", confirmation_code:"123"})
-	}
+	let!(:user) {create(:user, id:1)}
 	
 	describe "GET new" do
 		let!(:user) {stub_model(User).as_new_record}
@@ -117,6 +114,33 @@ describe UsersController do
 		it "redirects to root url" do
 			get :confirm, token:user.confirmation_code
 			expect(response).to redirect_to root_path
+		end
+	end
+
+	describe "GET show" do
+		before :each do
+			User.stub(:find).and_return(user)
+		end
+
+		it "renders show template" do
+			get :show, id:1
+			expect(response).to render_template(:show)
+		end
+		it "should send User find message" do
+			User.should_receive(:find).with(user.id.to_s)
+			get :show, id:1
+		end
+		it "should send user instance posts message" do
+			user.should_receive(:posts)
+			get :show, id:1
+		end
+		it "assigns user instance" do
+			get :show, id:1
+			expect(assigns[:user]).not_to be_nil
+		end
+		it "assigns posts instance" do
+			get :show, id:1
+			expect(assigns[:posts]).not_to be_nil
 		end
 	end
 end
