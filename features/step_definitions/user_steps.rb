@@ -120,7 +120,6 @@ When /^I go to home page$/ do
 end
 
 Then /^I should see guest menu$/ do
-  expect(page).to have_selector("#top-menu")
   expect(page).to have_link('Sign up')
   expect(page).to have_link('Sign in')
 end
@@ -133,4 +132,42 @@ end
 Then /^I should see "(.*?)" menu$/ do |email|
   expect(page).to have_content("Welcome, #{email}")
   expect(page).to have_link("Sign out", href:signout_path)
+end
+
+#User management
+
+When /^I visit "(.*?)" profile page$/ do |email|
+  user = User.find_by_email(email)
+  visit(user_path(user))
+end
+
+When /^I click "(.*?)" link$/ do |arg1|
+  click_link "Edit"
+end
+
+Then /^I see the edit form for "(.*?)"$/ do |email|
+  user = User.find_by_email(email)
+  expect(page).to have_selector("form#edit_user_#{user.id}")
+end
+
+When /^I fill in edit form with valid data for "(.*?)"$/ do |email|
+  user = User.find_by_email(email)
+  visit edit_user_path(user)
+  fill_in "user_password", with:"hwat"
+  fill_in "user_password_confirmation", with:"hwat"
+  click_button "Update"
+end
+
+Then /^I am redirected to profile page of "(.*?)"$/ do |email|
+  user = User.find_by_email(email)
+  expect(current_path).to eq(user_path(user))
+end
+
+Then /^I have a success notice$/ do
+  expect(page).to have_content("Your profile has been updated")
+end
+
+Then /^"(.*?)" password is changed$/ do |email|
+  user = User.find_by_email(email)
+  expect(user.authenticate("hwat")).to eq(user)
 end

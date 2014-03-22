@@ -28,3 +28,32 @@ end
 Then /^I as "(.*?)" should be the owner$/ do |email|
   expect(Post.find_by_title("Title post").user).to eq(User.find_by_email(email))
 end
+
+#Post management
+
+Given /^I own the "(.*?)"$/ do |post|
+  user = User.find_by_email("alexander.vasyuk@berkeley.edu")
+  post = create(:post, title:post, user:user)
+  visit user_path(user)
+end
+
+When /^I delete "(.*?)"$/ do |arg1|
+  click_link "delete"
+end
+
+Then /^"(.*?)" is no longer in the db$/ do |post|
+    expect(Post.find_by_title(post)).to be_nil
+end
+
+Then /^it does not appear in the feed$/ do
+  visit root_path
+  expect(page).not_to have_content("Big post")
+end
+
+When /^I try to delete "(.*?)" owned by "(.*?)"$/ do |arg1, arg2|
+  pending # express the regexp above with the code you wish you had
+end
+
+Then /^I get access denied$/ do
+  pending # express the regexp above with the code you wish you had
+end

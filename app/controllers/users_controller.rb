@@ -30,8 +30,27 @@ class UsersController < ApplicationController
 	end
 
 	def show
-		@user = User.find(params[:id]) 
-		@posts = @user.posts
+		begin
+			@user = User.find(params[:id]) 
+			@posts = @user.posts
+		rescue
+			flash[:error] = "User does not exist"
+      		redirect_to root_path
+		end
+	end
+
+	def edit
+		@user = User.find(params[:id])
+	end
+
+	def update
+	    @user = User.find(params[:id])
+	    if @user.update_attributes(user_params)
+	      redirect_to @user, notice: "Your profile has been updated"
+	    else
+	      flash.now[:error] = "Please, provide valid password for the user"
+	      render :edit
+	    end
 	end
 private
 

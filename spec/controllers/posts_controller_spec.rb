@@ -42,4 +42,45 @@ describe PostsController do
 			end
 		end
 	end
+
+	describe "DELETE destroy" do
+		let(:post) {create :post, id:1}
+
+		before :each do
+			Post.stub(:find).and_return(post)
+			post.stub(:owned_by?).and_return(true)
+		end
+
+		it "sends find" do
+			Post.should_receive(:find).with(post.id.to_s)
+			delete :destroy, id:post.id
+		end
+
+		context "when user is the owner" do
+			before :each do
+				post.stub(:owned_by?).and_return(true)
+			end
+
+			it "sends destroy msg" do
+				post.should_receive(:destroy)
+				delete :destroy, id:post.id
+			end
+
+			it "redirect_to root_path" do
+				delete :destroy, id:post.id
+				expect(response).to redirect_to root_path
+			end
+		end
+
+		context "when user is not the owner" do
+			before :each do
+				post.stub(:owned_by?).and_return(false)
+			end
+
+			it "redirects to access denied page" do
+				delete :destroy, id:post.id
+				expect(response).to redirect_to access_denied_path
+			end
+		end
+	end
 end

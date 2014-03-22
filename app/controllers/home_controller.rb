@@ -6,4 +6,8 @@ class HomeController < ApplicationController
 		end
 		@feed_items = Post.all
 	end
+
+	def access_denied
+
+	end
 end

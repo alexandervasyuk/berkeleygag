@@ -143,4 +143,72 @@ describe UsersController do
 			expect(assigns[:posts]).not_to be_nil
 		end
 	end
+
+	describe "GET edit" do
+		it "sends find message to User model" do
+			User.should_receive(:find).with(user.id.to_s)
+			get :edit, id:1
+		end
+		it "assigns user instance variable" do
+			get :edit, id:1
+			expect(assigns[:user]).not_to be_nil
+		end
+		it "should render edit template" do
+			get :edit, id:1
+			expect(response).to render_template :edit
+		end
+	end
+
+	describe "PUT update" do
+		let(:user) {create(:user, id:1)}
+	    let(:params) do
+	      {
+	        "email" => user.email,
+	        "password" => "author",
+	        "password_confirmation" => "author"
+	      }
+	    end
+
+	    before :each do
+	      User.stub(:find).and_return(user)
+	    end
+
+	    it "sends find message" do
+	      User.should_receive(:find)
+	      put :update, id: user.id, user: params
+	    end
+	    it "sends update_attributes message with provided params" do
+	      user.should_receive(:update_attributes)
+	      put :update, id: user.id, user: params
+	    end
+
+	    context "when update_attributes returns true" do
+	      before :each do
+	        user.stub(:update_attributes).and_return(true)
+	        put :update, id: user.id, user: params
+	      end
+	      it "redirects to user page" do
+	        expect(response).to redirect_to user_path(user)
+	      end
+	      it "assigns flash[:notice]" do
+	        expect(flash[:notice]).not_to be_nil
+	      end
+	    end
+
+	    context "when update_attributes returns false" do
+	      before :each do
+	        user.stub(:update_attributes).and_return(false)
+	        put :update, id: user.id, user: params
+	      end
+	      it "renders edit tempate" do
+	        expect(response).to render_template :edit
+	      end
+	      it "assings @user variable to view" do
+	        expect(assigns[:user]).to eq(user)
+	      end
+	      it "assings flash[:error]" do
+	        expect(flash[:error]).not_to be_nil
+	      end
+	    end
+	end
 end
