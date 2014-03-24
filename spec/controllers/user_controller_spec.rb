@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe UsersController do
-	let!(:user) {create(:user)}
+	let!(:user) {create(:user, id:1)}
 	before :each do
 		sign_in user
 	end
@@ -129,7 +129,7 @@ describe UsersController do
 			expect(response).to render_template(:show)
 		end
 		it "should send User find message" do
-			User.should_receive(:find).with(user.id.to_s)
+			User.should_receive(:find).with(user.id)
 			get :show, id:1
 		end
 		it "should send user instance posts message" do
