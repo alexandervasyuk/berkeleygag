@@ -17,9 +17,6 @@ describe "shared/_feed.html.erb" do
 	it "has title" do
 		expect(rendered).to have_content(post.title)
 	end
-	it "has user who posted it" do
-		expect(rendered).to have_content(post.user.email)
-	end
 	it "has timestamp" do
 		expect(rendered).to have_content(time_ago_in_words(post.created_at))
 	end

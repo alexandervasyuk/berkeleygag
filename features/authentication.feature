@@ -18,3 +18,8 @@ Feature: Authentication
 		Then I should not be logged in
 		And I should be prompted with signin form again
 		And I should see my errors
+
+	Scenario: Access a page that requires login
+		Given I am a guest
+		When I access a page that requires login
+		Then I should be redirected to sign in page

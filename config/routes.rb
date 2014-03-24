@@ -12,4 +12,6 @@ Berkeleygag::Application.routes.draw do
   get "confirm/:token", to:"users#confirm"
   get "access_denied", to:"home#access_denied"
 
+
+  match "*gibberish", to:"home#not_found"
 end

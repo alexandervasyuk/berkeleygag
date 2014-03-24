@@ -3,7 +3,6 @@ Feature: Top menu
 	There are three types of top menus:
 	1. Guest: Sign up, Sign in links
 	2. Logged in user
-	3. Admin
 
 	Scenario: Guest
 		Given I am a guest

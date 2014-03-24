@@ -1,6 +1,6 @@
 Feature: Create a Post
 
-	Creating a post is a complicated process and needs to be dealed with separately from post management.
+	Creating a post.
 
 	Scenario: Create a post as logged in user
 		Given I am "alexander.vasyuk@berkeley.edu"

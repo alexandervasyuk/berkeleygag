@@ -44,7 +44,8 @@ describe PostsController do
 	end
 
 	describe "DELETE destroy" do
-		let(:post) {create :post, id:1}
+		let(:user) {create :user}
+		let(:post) {create :post, user:user}
 
 		before :each do
 			Post.stub(:find).and_return(post)
@@ -66,9 +67,9 @@ describe PostsController do
 				delete :destroy, id:post.id
 			end
 
-			it "redirect_to root_path" do
+			it "redirect_to users path" do
 				delete :destroy, id:post.id
-				expect(response).to redirect_to root_path
+				expect(response).to redirect_to user_path(user)
 			end
 		end
 

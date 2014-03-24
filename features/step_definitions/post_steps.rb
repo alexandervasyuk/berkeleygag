@@ -49,11 +49,3 @@ Then /^it does not appear in the feed$/ do
   visit root_path
   expect(page).not_to have_content("Big post")
 end
-
-When /^I try to delete "(.*?)" owned by "(.*?)"$/ do |arg1, arg2|
-  pending # express the regexp above with the code you wish you had
-end
-
-Then /^I get access denied$/ do
-  pending # express the regexp above with the code you wish you had
-end

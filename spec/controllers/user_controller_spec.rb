@@ -1,7 +1,10 @@
 require 'spec_helper'
 
 describe UsersController do
-	let!(:user) {create(:user, id:1)}
+	let!(:user) {create(:user)}
+	before :each do
+		sign_in user
+	end
 	
 	describe "GET new" do
 		let!(:user) {stub_model(User).as_new_record}
@@ -23,7 +26,6 @@ describe UsersController do
 	end
 
 	describe "POST create" do
-		let!(:user) {stub_model(User, params)}
 		let(:params) do
 			{
 				"email"=>"alexander.vasyuk@berkeley.edu",
@@ -142,11 +144,17 @@ describe UsersController do
 			get :show, id:1
 			expect(assigns[:posts]).not_to be_nil
 		end
+
+		it "redirects to signin page if user is guest" do
+			session[:user_id] = nil
+			get :show, id:1
+			expect(response).to redirect_to(signin_url)
+		end
 	end
 
 	describe "GET edit" do
 		it "sends find message to User model" do
-			User.should_receive(:find).with(user.id.to_s)
+			User.should_receive(:find).with(user.id)
 			get :edit, id:1
 		end
 		it "assigns user instance variable" do
@@ -156,6 +164,11 @@ describe UsersController do
 		it "should render edit template" do
 			get :edit, id:1
 			expect(response).to render_template :edit
+		end
+		it "redirects to signin page if user is guest" do
+			session[:user_id] = nil
+			get :edit, id:1
+			expect(response).to redirect_to(signin_url)
 		end
 	end
 
@@ -181,6 +194,11 @@ describe UsersController do
 	      user.should_receive(:update_attributes)
 	      put :update, id: user.id, user: params
 	    end
+	    it "redirects to signin page if user is guest" do
+			session[:user_id] = nil
+			put :update, id: user.id, user: params
+			expect(response).to redirect_to(signin_url)
+		end
 
 	    context "when update_attributes returns true" do
 	      before :each do

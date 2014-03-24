@@ -20,6 +20,10 @@ class User < ActiveRecord::Base
 		end
 	end
 
+	def owned_by?(other_user)
+		other_user && other_user.id == self.id
+	end
+
 private
 
 	def set_confirmation_code

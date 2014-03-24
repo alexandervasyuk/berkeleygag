@@ -5,7 +5,7 @@ describe "posts/_post.html.erb" do
 	
 	before :each do
 		view.stub(:current_user?).and_return(true)
-		render partial:"posts/post.html.erb", locals:{post:post}
+		render partial:"posts/post", locals:{post:post}
 	end
 
 	it "should have title" do

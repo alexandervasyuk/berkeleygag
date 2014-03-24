@@ -10,4 +10,8 @@ class HomeController < ApplicationController
 	def access_denied
 
 	end
+
+	def not_found
+
+	end
 end

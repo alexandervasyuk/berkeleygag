@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-
+	before_filter :signed_in_user, only: [:show, :edit, :update]
+	before_filter :correct_user, only: [:show, :edit, :update]
 	def new
 		@user = User.new
 	end
@@ -53,6 +54,11 @@ class UsersController < ApplicationController
 	    end
 	end
 private
+
+	def correct_user
+		user = User.find(params[:id])
+		raise AccessDenied unless user.owned_by?(current_user)
+	end
 
 	def user_params
 		params.require(:user).permit(:email, :password, :password_confirmation)
