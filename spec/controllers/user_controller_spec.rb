@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe UsersController do
-	let!(:user) {create(:user, id:1)}
+	let!(:user) {create(:user)}
 	before :each do
 		sign_in user
 	end
@@ -125,29 +125,29 @@ describe UsersController do
 		end
 
 		it "renders show template" do
-			get :show, id:1
+			get :show, id:user.id
 			expect(response).to render_template(:show)
 		end
 		it "should send User find message" do
 			User.should_receive(:find).with(user.id)
-			get :show, id:1
+			get :show, id:user.id
 		end
 		it "should send user instance posts message" do
 			user.should_receive(:posts)
-			get :show, id:1
+			get :show, id:user.id
 		end
 		it "assigns user instance" do
-			get :show, id:1
+			get :show, id:user.id
 			expect(assigns[:user]).not_to be_nil
 		end
 		it "assigns posts instance" do
-			get :show, id:1
+			get :show, id:user.id
 			expect(assigns[:posts]).not_to be_nil
 		end
 
 		it "redirects to signin page if user is guest" do
 			session[:user_id] = nil
-			get :show, id:1
+			get :show, id:user.id
 			expect(response).to redirect_to(signin_url)
 		end
 	end
@@ -155,19 +155,19 @@ describe UsersController do
 	describe "GET edit" do
 		it "sends find message to User model" do
 			User.should_receive(:find).with(user.id)
-			get :edit, id:1
+			get :edit, id:user.id
 		end
 		it "assigns user instance variable" do
-			get :edit, id:1
+			get :edit, id:user.id
 			expect(assigns[:user]).not_to be_nil
 		end
 		it "should render edit template" do
-			get :edit, id:1
+			get :edit, id:user.id
 			expect(response).to render_template :edit
 		end
 		it "redirects to signin page if user is guest" do
 			session[:user_id] = nil
-			get :edit, id:1
+			get :edit, id:user.id
 			expect(response).to redirect_to(signin_url)
 		end
 	end

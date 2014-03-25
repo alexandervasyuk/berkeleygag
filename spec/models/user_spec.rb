@@ -21,7 +21,7 @@ describe User do
 			expect(user.valid?).to be_false
 		end
 	end
-	
+
 	it "is an ActiveRecord model" do
 		expect(User.superclass).to eq(ActiveRecord::Base)
 	end
@@ -55,5 +55,15 @@ describe User do
 			password:"pass", password_confirmation:"pass")
 		user.should_receive(:save)
 		user.confirm(user.confirmation_code)
+	end
+
+	describe "#total_votes" do
+		it "returns users total votes" do
+			user_owner = create(:user)
+			other_user = create(:user)
+			post = create(:post, user:user_owner)
+			post_vote = create(:post_vote, value:1, user:other_user, post:post)
+			expect(user_owner.total_votes).to eq(1)
+		end
 	end
 end

@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
 	has_secure_password
 
 	has_many :posts
+	has_many :post_votes
 	
 	VALID_EMAIL_REGEX = /\b(?:(?![_.-])(?!.*[_.-]{2})[a-z0-9_.-]+(?<![_.-]))@(?:(?!-)(?!.*--)[a-z0-9-]+(?<!-)\.)*berkeley\.edu\b/i
 
@@ -22,6 +23,10 @@ class User < ActiveRecord::Base
 
 	def owned_by?(other_user)
 		other_user && other_user.id == self.id
+	end
+
+	def total_votes
+		PostVote.joins(:post).where(posts: {user_id: self.id}).sum('value')
 	end
 
 private

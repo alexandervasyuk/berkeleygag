@@ -18,5 +18,6 @@ describe 'users/show.html.erb' do
 		it { should have_content(post1.title) }
 		it { should have_content(post2.title) }
 		it { should have_link("Edit", href:edit_user_path(user)) }
+		it { should have_content("Reputation")}
 	end
 end

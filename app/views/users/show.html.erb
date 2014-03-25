@@ -1,6 +1,7 @@
 <div class="row">
   <aside class="span4">
     <%= link_to "Edit my account", edit_user_path(@user)%>
+    <%= "Reputation: #{@user.total_votes}"%>
   </aside>
   <div class="span8">
     <% if @user.posts.any? %>

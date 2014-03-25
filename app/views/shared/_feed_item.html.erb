@@ -5,6 +5,13 @@
 			<%= image_tag feed_item.photo.url, width:620%>
 		<% end %>
 	</div>
+	<div class="vote">
+		<span class="vote-count">
+			<%= pluralize feed_item.votes, "vote" %>
+		</span>
+		<%= link_to "haha", vote_post_path(feed_item, value:1), method: :post, remote: true%>
+		<%= link_to "meh", vote_post_path(feed_item, value:-1), method: :post, remote: true%>
+	</div>
     <div class="timestamp">
       Posted <%= time_ago_in_words(feed_item.created_at) %> ago.
     </div>

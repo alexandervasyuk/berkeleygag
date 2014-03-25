@@ -84,4 +84,53 @@ describe PostsController do
 			end
 		end
 	end
+
+	describe "POST vote" do
+
+		let(:user) {create(:user)}
+		let(:posting) {create(:post, user:user)}
+		let(:post_vote) {mock_model("PostVote").as_null_object}
+		before :each do
+			controller.stub(:current_user).and_return(user)
+			controller.current_user.stub(:post_votes).and_return(double("Object"))
+			controller.current_user.post_votes.stub(:build).and_return(post_vote)
+			request.env["HTTP_REFERER"] = root_url
+		end
+		it "sends a new message to current_user.post_votes" do
+			controller.current_user.post_votes.should_receive(:build)
+			post :vote, id:posting.id, value:1
+		end
+
+		it "send a save message" do
+			post_vote.should_receive(:save)
+			post :vote, id:posting.id, value:1
+		end
+
+		it "redirects back" do
+			post :vote, id:posting.id, value:1
+			expect(response).to redirect_to(:back)
+		end
+
+		context "save returns true" do
+			before :each do
+				post_vote.stub(:save).and_return(true)
+			end
+
+			it "should have notice thanks" do
+				post :vote, id:posting.id, value:1
+				expect(flash[:notice]).not_to be_nil
+			end
+		end
+
+		context "save returns false" do
+			before :each do
+				post_vote.stub(:save).and_return(false)
+			end
+
+			it "should have notice thanks" do
+				post :vote, id:posting.id, value:1
+				expect(flash[:error]).not_to be_nil
+			end
+		end
+	end	
 end

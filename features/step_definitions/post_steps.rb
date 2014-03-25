@@ -49,3 +49,14 @@ Then /^it does not appear in the feed$/ do
   visit root_path
   expect(page).not_to have_content("Big post")
 end
+
+When /^I like "(.*?)" post$/ do |email|
+  user = User.find_by_email(email)
+  post = create(:post)
+  visit root_url
+  click_link "haha"
+end
+
+Then /^the count of "(.*?)" post increases by (\d+)$/ do |email, num|
+  expect(page).to have_content("1 vote")
+end

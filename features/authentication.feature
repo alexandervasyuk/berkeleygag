@@ -2,7 +2,7 @@ Feature: Authentication
 
 	Scenario: Successful login
 		Given I am a guest
-		And reader with "alex@berkeley.edu" exists
+		And user with "alex@berkeley.edu" exists
 		When I fill out the login form for "alex@berkeley.edu"
 		Then I am logged in as "alex@berkeley.edu"
 
@@ -13,7 +13,7 @@ Feature: Authentication
 
 	Scenario: Unsuccessful login
 		Given I am a guest
-		And reader with "alexa@berkeley.edu" does not exist
+		And user with "alexa@berkeley.edu" does not exist
 		When I fill out the login form for "alexa@berkeley.edu"
 		Then I should not be logged in
 		And I should be prompted with signin form again

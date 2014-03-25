@@ -9,4 +9,10 @@ FactoryGirl.define do
     sequence(:title) { |n| "Some title#{n}" }
     user
   end
+
+  factory :post_vote do
+  	value 1
+  	user
+  	post
+  end
 end

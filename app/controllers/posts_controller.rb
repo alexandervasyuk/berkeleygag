@@ -18,6 +18,24 @@ class PostsController < ApplicationController
 		redirect_to user_path(post.user)
 	end
 
+	def vote
+		@vote = current_user.post_votes.build(value:params[:value], post_id:params[:id])
+		if @vote.save
+			respond_to do |f|
+				f.html {redirect_to :back, notice: "Thanks"}
+				f.js
+			end
+		else
+			respond_to do |f|
+				f.html do 
+					flash[:error] = "Unable to vote"
+					redirect_to :back
+				end
+				f.js
+			end
+		end
+	end
+
 private
 
 	def correct_user
