@@ -4,8 +4,10 @@ gem 'rails', '3.2.11'
 gem 'will_paginate', '3.0.4'
 gem 'bootstrap-will_paginate', '0.0.9'
 
-group :developement, :test do
+group :developement do
   gem 'sqlite3'
+end
+group :developement, :test do
   gem 'rspec-rails', '~> 2.12.2'
   gem 'spork', '~> 0.9.2'
 end
