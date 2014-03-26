@@ -4,6 +4,7 @@ gem 'rails', '3.2.11'
 gem 'will_paginate', '3.0.4'
 gem 'bootstrap-will_paginate', '0.0.9'
 gem 'pg', '0.15.1'
+gem 'sass', '3.2.13'
 
 group :developement, :test do
   gem 'rspec-rails', '~> 2.12.2'
