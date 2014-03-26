@@ -1,11 +1,11 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.11'
-gem 'sqlite3'
 gem 'will_paginate', '3.0.4'
 gem 'bootstrap-will_paginate', '0.0.9'
 
 group :developement, :test do
+  gem 'sqlite3'
   gem 'rspec-rails', '~> 2.12.2'
   gem 'spork', '~> 0.9.2'
 end
@@ -24,6 +24,10 @@ group :assets do
   gem 'coffee-rails', '~> 3.2.1'
   gem 'uglifier', '>= 1.0.3'
   gem 'bootstrap-sass'
+end
+
+group :production do
+  gem 'pg'
 end
 
 gem 'jquery-rails'
