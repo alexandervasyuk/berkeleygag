@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+ruby '2.1.1'
 
 gem 'rails', '3.2.11'
 gem 'will_paginate', '3.0.4'
@@ -24,6 +25,10 @@ group :assets do
   gem 'coffee-rails', '~> 3.2.1'
   gem 'uglifier', '>= 1.0.3'
   gem 'bootstrap-sass', '2.3.2.0'
+end
+
+group :production do
+  gem 'rails_12factor'
 end
 
 gem 'jquery-rails'
