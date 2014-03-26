@@ -3,10 +3,8 @@ source 'https://rubygems.org'
 gem 'rails', '3.2.11'
 gem 'will_paginate', '3.0.4'
 gem 'bootstrap-will_paginate', '0.0.9'
+gem 'pg', '0.15.1'
 
-group :developement do
-  gem 'sqlite3'
-end
 group :developement, :test do
   gem 'rspec-rails', '~> 2.12.2'
   gem 'spork', '~> 0.9.2'
@@ -28,14 +26,10 @@ group :assets do
   gem 'bootstrap-sass'
 end
 
-group :production do
-  gem 'pg'
-end
-
 gem 'jquery-rails'
 gem 'strong_parameters'
 gem 'email_validator'
 gem 'active_attr'
 
-gem 'bcrypt-ruby'
+gem 'bcrypt-ruby', '~> 3.0.0'
 gem 'carrierwave'
