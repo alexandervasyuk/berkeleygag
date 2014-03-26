@@ -1,2 +1,82 @@
 @import "bootstrap";
 @import "bootstrap-responsive";
+
+// Feed item
+
+.feed_item {
+	border-top: 1px solid #eee;
+	line-height: 1.7em;
+	margin-top:10px;
+
+	.title {
+		margin-top:10px;
+		font-size: 1.7em;
+		font-weight:bold;
+		letter-spacing: -1px;
+	}
+
+	.timestamp {
+		font-size: 0.8em;
+		color: #999;
+	}
+
+	.vote .vote-count {
+		font-size: 1em;
+		color: #999;
+	}
+
+	.voting-option {
+		margin-left:10px;
+	}
+}
+
+// Post form
+
+.post-form {
+	line-height: 1.7em;
+	margin-top:10px;
+
+	.title	 {
+		font-weight:bold;
+		font-size: 1.7em;
+		padding-top:10px;
+		letter-spacing: -1px;
+	}
+
+	.description {
+		font-size: 0.8em;
+		color: #999;
+	}
+
+	.photo {
+		margin-top:10px;
+		line-height: 1em;
+	}
+
+	.post-title {
+		font-weight:bold;
+		letter-spacing: -1px;
+	}
+}
+
+//Show page
+.posts {
+	
+	.post {
+		border-top: 1px solid #eee;
+		line-height: 1.7em;
+		margin-top:10px;
+
+		.title {
+			margin-top:10px;
+			font-size: 1.7em;
+			font-weight:bold;
+			letter-spacing: -1px;
+		}
+
+		.photo {
+			margin-top:10px;
+			line-height: 1em;
+		}	
+	}
+}

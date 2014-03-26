@@ -1,4 +1,4 @@
-<li id="<%= post.id %>" class="post">
+<article id="<%= post.id %>" class="post">
 	<div class="title"><%= post.title %></div>
 	<div class="photo">
 		<% if post.photo? %>
@@ -10,4 +10,4 @@
 				data: { confirm: "You sure?" },
 				title: post.title %>
 	<%end%>
-</li>
+</article>

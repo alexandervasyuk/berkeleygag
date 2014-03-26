@@ -1,5 +1,8 @@
-<li id="<%= feed_item.id %>" class="feed_item">
+<article id="<%= feed_item.id %>" class="feed_item">
 	<div class="title"><%= feed_item.title %></div>
+	<div class="timestamp">
+      Posted <%= time_ago_in_words(feed_item.created_at) %> ago.
+    </div>
 	<div class="photo">
 		<% if feed_item.photo? %>
 			<%= image_tag feed_item.photo.url, width:620%>
@@ -9,10 +12,10 @@
 		<span class="vote-count">
 			<%= pluralize feed_item.votes, "vote" %>
 		</span>
-		<%= link_to "haha", vote_post_path(feed_item, value:1), method: :post, remote: true%>
-		<%= link_to "meh", vote_post_path(feed_item, value:-1), method: :post, remote: true%>
+		<span class="voting-option">
+			<%= link_to "haha", vote_post_path(feed_item, value:1), method: :post, remote: true, class:"haha"%>
+			<span> | </span>
+			<%= link_to "meh", vote_post_path(feed_item, value:-1), method: :post, remote: true, class:"meh"%>
+		</span>
 	</div>
-    <div class="timestamp">
-      Posted <%= time_ago_in_words(feed_item.created_at) %> ago.
-    </div>
-</li>
+</article>

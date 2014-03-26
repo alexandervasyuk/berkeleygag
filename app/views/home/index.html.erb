@@ -4,11 +4,13 @@
 			<%= render 'shared/feed'%>
 		</section>
 	</div>
-	<aside class="span4">
+	<div class="span4">
 		<%if signed_in?%>
-			<section>
+			<section class="post-form">
+				<div class="title">Why so serious?</div>
+				<div class="description">Choose a photo and a title. Make fun of your friends.</div>
 				<%= render 'shared/post_form'%>
 			</section>
 		<%end%>
-	</aside>
+	</div>
 </div>
