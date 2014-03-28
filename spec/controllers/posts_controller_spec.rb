@@ -9,7 +9,7 @@ describe PostsController do
 				"title"=>"Some title"
 			}
 		end
-		let!(:user) {create(:user)}
+		let!(:user) {create(:user, confirmation_code:"Verified")}
 		let!(:posting) {create(:post, user:user)}
 		before :each do
 			sign_in user
@@ -44,7 +44,7 @@ describe PostsController do
 	end
 
 	describe "DELETE destroy" do
-		let(:user) {create :user}
+		let(:user) {create :user, confirmation_code:"Verified"}
 		let(:post) {create :post, user:user}
 
 		before :each do
@@ -87,7 +87,7 @@ describe PostsController do
 
 	describe "POST vote" do
 
-		let(:user) {create(:user)}
+		let(:user) {create(:user, confirmation_code:"Verified")}
 		let(:posting) {create(:post, user:user)}
 		let(:post_vote) {mock_model("PostVote").as_null_object}
 		before :each do

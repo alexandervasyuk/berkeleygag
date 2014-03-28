@@ -1,6 +1,6 @@
 # Authentication - login success
 Given(/^user with "(.*?)" exists$/) do |email|
-  User.create(email:email, password:"pass", password_confirmation:"pass")
+  User.create(email:email, password:"pass", password_confirmation:"pass", confirmation_code:"Verified")
 end
 
 When /^I fill out the login form for "(.*?)"$/ do |email|
