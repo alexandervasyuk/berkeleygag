@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
 	before_filter :signed_in_user, only:[:create]
 	before_filter :correct_user, only:[:destroy]
+	before_filter :verified_user?, only:[:create]
 	
 	def create
 		@post = current_user.posts.build(post_params)

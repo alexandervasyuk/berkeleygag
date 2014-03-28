@@ -16,4 +16,10 @@ module SessionsHelper
   		redirect_to signin_url, notice:"Please sign in first"
   	end
   end
+
+  def verified_user?
+    unless current_user.confirmation_code == "Verified"
+      redirect_to root_url, notice:"Please verify your account first"
+    end
+  end
 end

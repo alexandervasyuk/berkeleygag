@@ -9,7 +9,7 @@ class UsersController < ApplicationController
 		@user = User.new(user_params)
 		if @user.save
 			session[:user_id] = @user.id
-			#UserMailer.confirm(@user).deliver
+			UserMailer.confirm(@user).deliver
 			flash[:success] = "Nice, bro. To gain full priviliges, check your email"
 			redirect_to root_path
 		else 
