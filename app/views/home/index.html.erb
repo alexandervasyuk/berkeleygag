@@ -11,6 +11,17 @@
 				<div class="description">Choose a photo and a title. Make fun of your friends.</div>
 				<%= render 'shared/post_form'%>
 			</section>
+
+			<section id="user-feedback"></section>
+			
+			<script id="template-upload" type="text/x-tmpl">
+				<div class="upload"> 
+					{%= o.title %}
+					<div class='progress'>
+						<div class="bar" style="width:0%"></div> 
+					</div>
+				</div>
+			</script>
 		<%end%>
 	</div>
 </div>

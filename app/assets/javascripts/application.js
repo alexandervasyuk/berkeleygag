@@ -12,5 +12,25 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery-fileupload/basic
+//= require jquery-fileupload/vendor/tmpl
 //= require bootstrap
 //= require_tree .
+
+jQuery(function(){
+	$('#new_post').fileupload({
+		dataType: "script",
+		masNumberOfFiles: 1, 
+		add: function(e, data) {
+			data.context = $(tmpl("template-upload", data.files[0]));
+			$('#user-feedback').append(data.context);
+			data.submit();
+		},
+		progress: function(e, data) {
+			if(data.context) {
+				var progress = parseInt(data.loaded/ data.total * 100, 10);
+				data.context.find('.bar').css('width', progress + '%');
+			}
+		}
+	});
+})

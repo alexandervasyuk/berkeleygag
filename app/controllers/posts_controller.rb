@@ -6,10 +6,18 @@ class PostsController < ApplicationController
 	def create
 		@post = current_user.posts.build(post_params)
 		if @post.save
-			redirect_to root_path
+			respond_to do |f|
+				f.html {redirect_to :back, notice: "Post created"}
+				f.js
+			end
 		else
-			flash.now[:error] = "Invalid input"
-			render 'home/index'
+			respond_to do |f|
+				f.html do
+					flash.now[:error] = "Invalid input"
+					render 'home/index'
+				end
+				f.js
+			end
 		end
 	end
 

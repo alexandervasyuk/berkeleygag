@@ -4,9 +4,9 @@
 	<%= f.text_field :title, class:"span3"%>
 
 	<%= f.file_field :photo, class:"photo"%>
-
-	<%= f.label :remote_photo_url, "or URL:"%>
-	<%= f.text_field :remote_photo_url, class:"span3"%>
+	
+	<%= f.label :remote_photo_url, "or image URL" %>
+    <%= f.text_field :remote_photo_url %>
 
 	<%= f.submit "Post", class: "btn btn-primary", style:"display:block" %>
 <%end%>
