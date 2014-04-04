@@ -3,6 +3,7 @@ CarrierWave.configure do |config|
     :provider               => 'AWS',                                       # required
     :aws_access_key_id      => 'AKIAILDZQMRAYQGSC4LA',                      # required
     :aws_secret_access_key  => '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',  # required
+    :region                 => 'us-west-1'
   }
   config.fog_directory  = 'berkeleygag'                           # required
   config.fog_public     = false                                   # optional, defaults to true

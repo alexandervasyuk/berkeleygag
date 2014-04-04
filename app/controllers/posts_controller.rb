@@ -45,6 +45,6 @@ private
 	end
 
 	def post_params
-		params.require(:post).permit(:title, :photo)
+		params.require(:post).permit(:title, :photo, :remote_photo_url)
 	end
 end

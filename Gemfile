@@ -38,3 +38,4 @@ gem 'active_attr'
 gem "fog", "~> 1.3.1"
 gem 'bcrypt-ruby', '~> 3.0.0'
 gem 'carrierwave'
+gem 'carrierwave_direct'
