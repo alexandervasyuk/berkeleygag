@@ -40,7 +40,9 @@ class PostsController < ApplicationController
 					flash[:error] = "Unable to vote"
 					redirect_to :back
 				end
-				f.js
+				f.js do 
+					flash[:error] = "Unable to vote"
+				end
 			end
 		end
 	end

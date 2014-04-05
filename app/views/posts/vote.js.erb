@@ -1,1 +1,4 @@
-$("#<%= @vote.post.id %> .vote .vote-count").html("<%= pluralize @vote.post.votes, 'vote' %>")
+$("#<%= @vote.post.id %> .vote .voting-option").addClass("inactive");
+$("#<%= @vote.post.id %> .vote .voting-option .haha").attr('href', "#");
+$("#<%= @vote.post.id %> .vote .voting-option .meh").attr('href', "#");
+$("#<%= @vote.post.id %> .vote .vote-count").html("<%= pluralize @vote.post.votes, 'vote' %>");

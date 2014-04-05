@@ -33,13 +33,31 @@
 		color: #999;
 	}
 
-	.vote .vote-count {
-		font-size: 1em;
-		color: #999;
-	}
+	.vote {
+		.vote-count {
+			font-size: 1em;
+			color: #999;
+		}
 
-	.voting-option {
-		margin-left:10px;
+		.voting-option {
+			margin-left:10px;
+		}
+
+		.inactive {
+
+			color: #A8A8A8;
+
+			.vertical-divider {
+				color:inherit;
+			}
+
+			a {
+				color: inherit;
+				text-decoration:none;
+				pointer-events: none;
+	   			cursor: default;
+			}
+		}
 	}
 }
 
