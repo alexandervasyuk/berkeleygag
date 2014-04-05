@@ -1,14 +1,9 @@
 <div class="row">
-	<div class="span8">
-		<section id="feed">
-			<%= render 'shared/feed'%>
-		</section>
-	</div>
-	<div class="span4">
+	<div class="col-md-4 col-md-push-8">
 		<%if signed_in?%>
 			<section class="post-form">
 				<div class="title">Why so serious?</div>
-				<div class="description">Choose a photo and a title. Make fun of your friends.</div>
+				<div class="description">Choose a photo and a title. Supporting: .jp(e)g, .png</div>
 				<%= render 'shared/post_form'%>
 			</section>
 
@@ -16,12 +11,16 @@
 			
 			<script id="template-upload" type="text/x-tmpl">
 				<div class="upload"> 
-					{%= o.title %}
 					<div class='progress'>
-						<div class="bar" style="width:0%"></div> 
+						<div class="progress-bar" role="progressbar" style="width:0%"></div> 
 					</div>
 				</div>
 			</script>
 		<%end%>
+	</div>
+	<div class="col-md-8 col-md-pull-4">
+		<section id="feed">
+			<%= render 'shared/feed'%>
+		</section>
 	</div>
 </div>

@@ -2,21 +2,14 @@
 <html>
 <head>
   <title>Berkeley Gag</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
+    <%= render "layouts/header"%>  
     <div class="container">
-
-      <!-- Header: put in a partial later -->
-      <div class="navbar" id="top-menu">
-        <div class="navbar-inner">
-          <%= link_to "Berkeley Gag", root_url, class: "brand" %>
-          <%= top_menu %>
-        </div>
-      </div>
-
       <% flash.each do |key,value| %>
         <div class="<%= flash_class(key) %>">
           <%= value %>
@@ -24,8 +17,6 @@
       <% end %>
 
       <%= yield %>
-
     </div>
-
 </body>
 </html>

@@ -1,7 +1,20 @@
 @import "bootstrap";
-@import "bootstrap-responsive";
+
+//Header
+.slogan {
+	float: left;
+	padding: 15px 15px;
+	font-size: 13px;
+	line-height: 24px;
+	height: 50px;
+}
 
 // Feed item
+
+#posts > .feed_item:first-child {
+	border-top: none;
+	margin-top:0px;
+}
 
 .feed_item {
 	border-top: 1px solid #eee;
@@ -34,7 +47,12 @@
 
 .post-form {
 	line-height: 1.7em;
-	margin-top:10px;
+	margin-bottom:10px;
+	border-bottom: 1px solid #eee;
+
+	#post-title-validation {
+		display:none;
+	}
 
 	.title	 {
 		font-weight:bold;
@@ -49,7 +67,6 @@
 	}
 
 	.photo {
-		margin-top:10px;
 		line-height: 1em;
 	}
 
@@ -57,7 +74,19 @@
 		font-weight:bold;
 		letter-spacing: -1px;
 	}
+
+	#photo-form, #link-form {
+		margin-top:15px;
+	}
+
+	#photo-btn, #link-btn {
+		outline: none;
+	  	box-shadow:none !important;
+	}
 }
+
+//Progress bar
+
 
 //Show page
 .posts {

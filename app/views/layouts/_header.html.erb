@@ -1,0 +1,30 @@
+<nav class="navbar navbar-default" role="navigation" id="top-menu">
+	<div class="container">
+	<!-- Brand and toggle get grouped for better mobile display -->
+	<div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+		    <span class="sr-only">Toggle navigation</span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		  </button>
+		  <%= link_to "BerkeleyGag", root_url, class: "navbar-brand" %>
+		  <span class="slogan hidden-xs">because we don't waste enough time</span>
+	</div>
+
+	<!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+      	  <% if signed_in? %>
+			<%= content_tag(:li, link_to("#{current_user.email}", user_path(current_user))) %>
+			<%= tag(:li, class: "divider-vertical")%>
+			<%= content_tag(:li, link_to("Sign out", signout_path))%>
+          <% else %>
+            <%= content_tag(:li, link_to("Sign up", signup_path))%>
+            <%= tag(:li, class: "divider-vertical")%>
+            <%= content_tag(:li, link_to("Sign in", signin_path))%>
+          <% end %>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>

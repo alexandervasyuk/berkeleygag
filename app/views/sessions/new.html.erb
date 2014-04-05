@@ -1,15 +1,19 @@
 <div class="row">
- 	<div class="span4 pull-right">
+ 	<div class="col-md-4 pull-right">
  		<h1>Sign in</h1>
-		<%= form_for @login, {url:sessions_path} do |f|%>
+		<%= form_for @login, url:sessions_path, html:{role:"form"} do |f|%>
 			<%= render 'shared/error_messages', object: f.object %>
-			<%= f.label :email%>
-			<%= f.text_field :email, placeholder:"Email", class:"span4"%>
 
-			<%= f.label :password%>
-			<%= f.password_field :password, placeholder:"Password", class:"span4"%>
+			<div class="form-group">
+				<%= f.label :email%>
+				<%= f.text_field :email, placeholder:"Email", class:"col-md-4 form-control"%>
+			</div>
 
-			<%= f.submit "Sign in", class: "btn btn-primary", style:"display:block"%>
+			<div class="form-group">
+				<%= f.label :password%>
+				<%= f.password_field :password, placeholder:"Password", class:"col-md-4 form-control"%>
+			</div>
+			<%= f.submit "Sign in", class: "btn btn-primary", style:"margin-top:10px"%>
 		<%end%>
 	</div>
 </div>

@@ -7,14 +7,14 @@ class PostsController < ApplicationController
 		@post = current_user.posts.build(post_params)
 		if @post.save
 			respond_to do |f|
-				f.html {redirect_to :back, notice: "Post created"}
+				f.html {redirect_to :back}
 				f.js
 			end
 		else
 			respond_to do |f|
 				f.html do
-					flash.now[:error] = "Invalid input"
-					render 'home/index'
+					flash[:error] = "Can not post without a valid title and a photo or link, bro"
+					redirect_to :back
 				end
 				f.js
 			end

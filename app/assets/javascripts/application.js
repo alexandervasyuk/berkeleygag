@@ -17,6 +17,7 @@
 //= require bootstrap
 //= require_tree .
 
+// JqueryFileUpload
 jQuery(function(){
 	$('#new_post').fileupload({
 		dataType: "script",
@@ -29,8 +30,70 @@ jQuery(function(){
 		progress: function(e, data) {
 			if(data.context) {
 				var progress = parseInt(data.loaded/ data.total * 100, 10);
-				data.context.find('.bar').css('width', progress + '%');
+				data.context.find('.progress-bar').css('width', progress + '%');
 			}
+		},
+		done: function(e,data) {
+			$(".upload").fadeOut(300, function(){$(this).remove();});
 		}
 	});
 })
+
+// Post form client validation
+var titleInputLimit = 60;
+$(function() {
+
+	$('#post_title').on('focus', function(e){
+		$('#post-title-validation').show();
+		if (this.value.length == 0) {
+			$('#post-title-validation').text(titleInputLimit);
+		} else {
+			validateTitle(this);
+		}
+
+	});
+
+	$('#post_title').on('focusout', function(e){
+		$('#post-title-validation').hide();
+	});
+
+	$('#post_title').on('keyup input paste', function(){
+		validateTitle(this);
+	})
+});
+
+function validateTitle(title) {
+	var chrRemaining = titleInputLimit - (title.value.length);
+	if (chrRemaining < 0) {
+		$('#post-title-validation').text(0);
+		title.value = title.value.substring(0, titleInputLimit);
+	} else {
+		$('#post-title-validation').text(chrRemaining);
+	}
+};
+
+// Post form toggle button
+$(function(){
+	$('#photo-btn').addClass('active');
+	$('#link-form').hide();
+	$('#submit-post').hide();
+
+	$('#link-btn').on('click', function(){
+		$('#photo-btn').removeClass('active');
+		$('#link-btn').addClass('active');
+
+		$('#photo-form').hide();
+		$('#link-form').show();
+		$('#submit-post').show();
+	})
+
+	$('#photo-btn').on('click', function(){
+		$('#photo-btn').addClass('active');
+		$('#link-btn').removeClass('active');
+
+		$('#photo-form').show();
+		$('#link-form').hide();
+		$('#submit-post').hide();
+	})
+})
+

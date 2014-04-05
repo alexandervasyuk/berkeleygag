@@ -2,8 +2,9 @@ class Post < ActiveRecord::Base
 	belongs_to :user
 	has_many :post_votes
 	
-	validates :title, presence:true
-
+	validates :title, presence:true, length: { maximum: 60 }
+	validates :photo, presence:true
+	
 	mount_uploader :photo, PhotoUploader
 
 	def votes

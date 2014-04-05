@@ -1,12 +1,29 @@
-<%= form_for @post do |f|%>
-	
-	<%= f.label :title, class:"post-title"%>
-	<%= f.text_field :title, class:"span3"%>
+<%= form_for @post, html:{role:"form"} do |f|%>
+	<div id="post-title-validation" class="pull-right"></div>
 
-	<%= f.file_field :photo, class:"photo"%>
-	
-	<%= f.label :remote_photo_url, "or image URL" %>
-    <%= f.text_field :remote_photo_url %>
+	<div class="form-group">
+		<%= f.label :title, class:"post-title"%>
+		<%= f.text_field :title, class:"form-control" %>		
+	</div>
 
-	<%= f.submit "Post", class: "btn btn-primary", style:"display:block" %>
+	<button type="button" class="btn btn-default" id="photo-btn">
+	  <span class="glyphicon glyphicon-camera"></span> Photo
+	</button>
+
+	<button type="button" class="btn btn-default" id="link-btn">
+	  <span class="glyphicon glyphicon-link"></span> Link
+	</button>
+
+	<div class="form-group" id="photo-form">
+		<%= f.label :photo, class:"sr-only"%>
+		<%= f.file_field :photo, class:"photo "%>
+	</div>
+	
+	<div class="form-group" id="link-form">
+		<%= f.label :remote_photo_url, "Link", class:"sr-only" %>
+    	<%= f.text_field :remote_photo_url, class:"form-control"%>
+	</div>
+
+
+	<%= f.submit "Post", class: "btn btn-default", id:"submit-post" %>
 <%end%>

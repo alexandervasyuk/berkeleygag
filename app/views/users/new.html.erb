@@ -1,18 +1,25 @@
 <div class="row">
- 	<div class="span4 pull-right">
+ 	<div class="col-md-4 pull-right">
  		<h1>Sign up</h1>
-		<%= form_for @user do |f|%>
+		<%= form_for @user, html:{role:"form"} do |f|%>
 			<%= render 'shared/error_messages', object: f.object %>
+
+			<div class="form-group">
 			<%= f.label :email%>
-			<%= f.text_field :email, placeholder:"Email", class:"span4"%>
+			<%= f.text_field :email, placeholder:"Email", class:"col-md-4 form-control"%>
+			</div>
 
+			<div class="form-group">
 			<%= f.label :password%>
-			<%= f.password_field :password, placeholder:"Password", class:"span4"%>
+			<%= f.password_field :password, placeholder:"Password", class:"col-md-4 form-control"%>
+			</div>
 
+			<div class="form-group">
 			<%= f.label :password_confirmation %>
-			<%= f.password_field :password_confirmation, placeholder:"Type password again bro", class:"span4"%>
+			<%= f.password_field :password_confirmation, placeholder:"Type password again bro", class:"col-md-4 form-control"%>
+			</div>
 
-			<%= f.submit "Sign up", class: "btn btn-primary", style:"display:block"%>
+			<%= f.submit "Sign up", class: "btn btn-primary", style:"margin-top:10px"%>
 		<%end%>
 	</div>
 </div>
