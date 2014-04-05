@@ -1,6 +1,6 @@
 class Post < ActiveRecord::Base
 	belongs_to :user
-	has_many :post_votes
+	has_many :post_votes, dependent: :destroy
 	
 	validates :title, presence:true, length: { maximum: 60 }
 	validates :photo, presence:true
