@@ -19,7 +19,10 @@ module SessionsHelper
 
   def verified_user?
     unless current_user.confirmation_code == "Verified"
-      redirect_to root_url, notice:"Please verify your account first"
+      respond_to do |f|
+        f.html {redirect_to root_url, notice:"Please verify your account first"}
+        f.js {render js:"alert('Please verify your account first');$('#post_title').val('');"}
+      end
     end
   end
 end
