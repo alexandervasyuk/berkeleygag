@@ -1,20 +1,17 @@
 <div class="row">
   <aside class="col-md-4">
     <div>
-      <%= @user.email%>
+      <%= link_to "Edit my account", edit_user_path(@user)%>  
     </div>
     <div>
       <%= "Reputation: #{@user.total_votes}"%>
-    </div>
-    <div>
-      <%= link_to "Edit my account", edit_user_path(@user)%>  
     </div>
   </aside>
   <div class="col-md-8">
     <% if @user.posts.any? %>
       <h4>Your posts (<%= @user.posts.count %>)</h4>
       <section class="posts">
-        <%= render @posts %>
+        <%= render partial:"shared/feed_item", collection:@posts %>
       </section>
     <% end %>
   </div>
