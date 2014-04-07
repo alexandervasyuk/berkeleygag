@@ -11,10 +11,21 @@ class Post < ActiveRecord::Base
 		post_votes.sum(:value)
 	end
 
-	def self.by_votes
+	def self.by_votes_up
 		select('posts.*, coalesce(value, 0) as votes').
 		joins('left join post_votes on post_id=posts.id').
 		order('votes desc')
+	end
+
+	def self.by_votes_down
+		select('posts.*, coalesce(value, 0) as votes').
+		joins('left join post_votes on post_id=posts.id').
+		order('votes asc')
+	end
+
+	def self.by_votes_freshest
+		select('posts.*').
+		order('created_at desc')
 	end
 
 	def owned_by?(user)

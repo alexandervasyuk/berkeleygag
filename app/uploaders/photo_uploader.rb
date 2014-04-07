@@ -52,4 +52,13 @@ class PhotoUploader < CarrierWave::Uploader::Base
   #   "something.jpg" if original_filename
   # end
 
+  #Fix 90 degree rotation from the phone
+  def fix_exif_rotation #this is my attempted solution
+    manipulate! do |img|
+      img.tap(&:auto_orient)
+    end
+  end
+
+  process :fix_exif_rotation
+
 end

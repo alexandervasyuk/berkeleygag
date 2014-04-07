@@ -9,11 +9,18 @@
 		    <span class="icon-bar"></span>
 		  </button>
 		  <%= link_to "BerkeleyGag", root_url, class: "navbar-brand" %>
-		  <span class="slogan hidden-xs">because we don't waste enough time on 9gag</span>
 	</div>
 
 	<!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-left">
+      	<%= content_tag(:li, link_to("New", root_path)) %>
+		<%= tag(:li, class: "divider-vertical")%>
+		<%= content_tag(:li, link_to("Haha", haha_path)) %>
+		<%= tag(:li, class: "divider-vertical")%>
+		<%= content_tag(:li, link_to("Meh", meh_path)) %>
+      </ul> 
+
       <ul class="nav navbar-nav navbar-right">
       	  <% if signed_in? %>
 			<%= content_tag(:li, link_to("#{current_user.email}", user_path(current_user))) %>
@@ -22,7 +29,7 @@
           <% else %>
             <%= content_tag(:li, link_to("Sign up", signup_path))%>
             <%= tag(:li, class: "divider-vertical")%>
-            <%= content_tag(:li, link_to("About", about_path))%>
+            <%= content_tag(:li, link_to("Sign in", signin_path))%>
           <% end %>
       </ul>
     </div><!-- /.navbar-collapse -->

@@ -3,7 +3,7 @@ ruby '2.1.1'
 
 gem 'rails', '3.2.11'
 gem 'will_paginate', '3.0.4'
-gem 'bootstrap-will_paginate', '0.0.9'
+gem 'will_paginate-bootstrap'
 gem 'pg', '0.12.2'
 gem 'sass-rails',   '~> 3.2.3'
 gem 'bootstrap-sass', '~> 3.1.1'
