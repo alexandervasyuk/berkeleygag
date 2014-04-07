@@ -1,5 +1,5 @@
 <%if @post.new_record?%>
-	alert("Failed to post")
+	alert("Failed to post. Input invalid.")
 <%else%>
 	$("#posts").append("<%= j render(partial:'shared/feed_item', object:@post)%>")
 <%end%>	

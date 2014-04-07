@@ -29,7 +29,7 @@ class PhotoUploader < CarrierWave::Uploader::Base
   # end
 
   # Process files as they are uploaded:
-  process :resize_to_limit => [750, 10000]
+  process :resize_to_fit => [750, 10000]
   #
   # def scale(width, height)
   #   # do something
@@ -62,4 +62,8 @@ class PhotoUploader < CarrierWave::Uploader::Base
 
   process :auto_orient
 
+
+  def extension_white_list
+    %w(jpg jpeg png)
+  end
 end

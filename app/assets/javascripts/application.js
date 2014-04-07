@@ -110,3 +110,13 @@ $(function() {
 		$(window).scroll();	
 	}
 })
+
+//Footer
+$(function() {
+	var winHeight = $(window).height(), 
+		htmlHeight = $('html').height();
+
+	if ( htmlHeight < winHeight ) {
+		$('footer').css('top', winHeight - htmlHeight)
+	}
+})
