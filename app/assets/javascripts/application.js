@@ -97,8 +97,14 @@ $(function(){
 	})
 })
 
-//Endless feed
+//Endless feed  + Footer
 $(function() {
+	var winHeight = $(window).height(), 
+		htmlHeight = $('html').height();
+	if ( htmlHeight < winHeight ) {
+		$('footer').css('top', winHeight - htmlHeight)	
+	}
+	
 	if ($('.pagination').length) {
 		$(window).scroll(function(){
 			var url = $('.pagination .next_page').attr('href')
@@ -106,17 +112,14 @@ $(function() {
 				$('.pagination').text("Fetching more posts ...")	
 				$.getScript(url)
 			}
+
+			if ( htmlHeight < winHeight ) {
+				$('footer').css('top', winHeight - htmlHeight)
+			} else {
+				$('footer').css('top', 0);
+			}
 	  	});
+
 		$(window).scroll();	
-	}
-})
-
-//Footer
-$(function() {
-	var winHeight = $(window).height(), 
-		htmlHeight = $('html').height();
-
-	if ( htmlHeight < winHeight ) {
-		$('footer').css('top', winHeight - htmlHeight)
 	}
 })

@@ -1,5 +1,5 @@
 <%if @post.new_record?%>
-	alert("Failed to post. Input invalid.")
+	alert("Failed to post. Please provide a valid title and photo")
 <%else%>
 	$('#post_title').val('');
 	$("#posts").append("<%= j render(partial:'shared/feed_item', object:@post)%>")
