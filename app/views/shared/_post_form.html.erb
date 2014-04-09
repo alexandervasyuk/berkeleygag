@@ -3,7 +3,7 @@
 
 	<div class="form-group">
 		<%= f.label :title, class:"post-title"%>
-		<%= f.text_field :title, class:"form-control" %>		
+		<%= f.text_field :title, placeholder:"Something witty", class:"form-control" %>		
 	</div>
 
 	<button type="button" class="btn btn-default" id="photo-btn">
@@ -21,7 +21,7 @@
 	
 	<div class="form-group" id="link-form">
 		<%= f.label :remote_photo_url, "Link", class:"sr-only" %>
-    	<%= f.text_field :remote_photo_url, class:"form-control"%>
+    	<%= f.text_field :remote_photo_url, placeholder:"http://", class:"form-control"%>
 	</div>
 
 
