@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
 
 	validates :email, presence:true
 	validates :email, uniqueness: { case_sensitive: false }
-	validates :email, format: { with: VALID_EMAIL_REGEX }
+	validates :email, format: { with: VALID_EMAIL_REGEX, message: "should end with 'berkeley.edu'" }
 
 	before_save :set_confirmation_code
 

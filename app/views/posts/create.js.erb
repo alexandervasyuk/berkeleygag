@@ -2,5 +2,5 @@
 	alert("Failed to post. Please provide a valid title and photo")
 <%else%>
 	$('#post_title').val('');
-	$("#posts").append("<%= j render(partial:'shared/feed_item', object:@post)%>");
+	$("#posts").prepend("<%= j render(partial:'shared/feed_item', object:@post)%>");
 <%end%>	
