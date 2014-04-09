@@ -26,11 +26,11 @@ ActiveRecord::Schema.define(:version => 20140409225941) do
 
   create_table "posts", :force => true do |t|
     t.string   "title"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
     t.integer  "user_id"
     t.string   "photo"
-    t.string   "original_creator"
+    t.string   "original_creator", :default => ""
   end
 
   create_table "users", :force => true do |t|
