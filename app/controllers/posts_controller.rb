@@ -63,6 +63,6 @@ private
 			params[:post][:remote_photo_url] = "http://i.memeful.com/memes/" + params[:post][:remote_photo_url].split(memeful_url)[1] + '.jpg'
 		end
 
-		params.require(:post).permit(:title, :photo, :remote_photo_url)
+		params.require(:post).permit(:title, :photo, :remote_photo_url, :original_creator)
 	end
 end

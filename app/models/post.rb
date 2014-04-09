@@ -1,9 +1,12 @@
 class Post < ActiveRecord::Base
+	before_save :default_values
+
 	belongs_to :user
 	has_many :post_votes, dependent: :destroy
 	
 	validates :title, presence:true, length: { maximum: 60 }
 	validates :photo, presence:true
+	validates :original_creator, length: {maximum:40}
 	
 	mount_uploader :photo, PhotoUploader
 
@@ -30,5 +33,11 @@ class Post < ActiveRecord::Base
 
 	def owned_by?(user)
 		user && user.id == self.user.id
+	end
+
+private
+
+	def default_values
+		self.original_creator ||= ''
 	end
 end

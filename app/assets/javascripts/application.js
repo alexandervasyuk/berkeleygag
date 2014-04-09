@@ -97,6 +97,46 @@ $(function(){
 	})
 })
 
+//Original creator
+$(function(){
+	$('#original_creator').hide();
+	$('#original-creator-label').change(function(){
+		$('#original_creator').toggle();
+	})
+})
+
+var original_creatorInputLimit = 50;
+$(function() {
+
+	$('#original_creator').on('focus', function(e){
+		$('#original_creator-validation').show();
+		if (this.value.length == 0) {
+			$('#original_creator-validation').text(original_creatorInputLimit);
+		} else {
+			validateOriginalCreator(this);
+		}
+
+	});
+
+	$('#original_creator').on('focusout', function(e){
+		$('#original_creator-validation').hide();
+	});
+
+	$('#original_creator').on('keyup input paste', function(){
+		validateOriginalCreator(this);
+	})
+});
+
+function validateOriginalCreator(title) {
+	var chrRemaining = original_creatorInputLimit - (title.value.length);
+	if (chrRemaining < 0) {
+		$('#original_creator-validation').text(0);
+		title.value = title.value.substring(0, original_creatorInputLimit);
+	} else {
+		$('#original_creator-validation').text(chrRemaining);
+	}
+};
+
 //Endless feed  + Footer
 $(function() {
 	

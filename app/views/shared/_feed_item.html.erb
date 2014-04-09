@@ -11,6 +11,9 @@
 	</span>
 	<div class="timestamp">
       Posted <%= time_ago_in_words(feed_item.created_at) %> ago.
+	    <%if !feed_item.original_creator.empty?%>
+			<span style="font-weight:bold;"> Courtesy of <%= feed_item.original_creator %> </span>
+		<%end%>
     </div>
 	<div class="photo">
 		<% if feed_item.photo? %>

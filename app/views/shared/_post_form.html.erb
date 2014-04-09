@@ -6,6 +6,14 @@
 		<%= f.text_field :title, placeholder:"Something witty", class:"form-control" %>		
 	</div>
 
+	<div id="original_creator-validation" class="pull-right"></div>
+
+	<div class="form-group">
+		<input id="original-creator-label" name="original-creator" type="checkbox" value="1" />
+		<label for="original-creator-label" style="font-size:12px">Attribute original creator</label>
+		<%= f.text_field :original_creator, placeholder:"Name", class:"form-control", id:"original_creator" %>	
+	</div>
+
 	<div class="description">Want to make a meme? Use <a href="http://memeful.com/">Memeful.com</a></div>
 
 	<button type="button" class="btn btn-default" id="photo-btn">
