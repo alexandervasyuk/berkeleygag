@@ -13,14 +13,17 @@ module SessionsHelper
 
   def signed_in_user
   	unless signed_in?
-  		redirect_to signin_url, notice:"Please sign in first"
+      respond_to do |f|
+        f.html {redirect_to signin_url, notice:"Please sign in first"}
+        f.js {render :js => "window.location.href = '#{signin_url}'"}
+      end
   	end
   end
 
   def verified_user?
     unless current_user.confirmation_code == "Verified"
       respond_to do |f|
-        f.html {redirect_to root_url, notice:"Please verify your account first"}
+        f.html 
         f.js {render js:"alert('Please verify your account first');$('#post_title').val('');"}
       end
     end

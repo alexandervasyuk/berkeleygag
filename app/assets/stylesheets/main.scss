@@ -58,20 +58,12 @@
 			margin-left:10px;
 		}
 
-		.inactive {
+		a.inactive {
 
 			color: #A8A8A8;
-
-			.vertical-divider {
-				color:inherit;
-			}
-
-			a {
-				color: inherit;
-				text-decoration:none;
-				pointer-events: none;
-	   			cursor: default;
-			}
+			text-decoration:none;
+			pointer-events: none;
+   			cursor: default;
 		}
 	}
 }

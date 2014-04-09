@@ -14,6 +14,10 @@ module ApplicationHelper
 	end
 
 	def already_voted?(user, post) 
-		PostVote.where(user_id:user.id, post_id:post.id).any?
+		if PostVote.where(user_id:user.id, post_id:post.id).any?
+			PostVote.where(user_id:user.id, post_id:post.id)[0].value
+		else
+			false
+		end
 	end
 end

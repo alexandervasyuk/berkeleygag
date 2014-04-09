@@ -21,20 +21,11 @@
 		<span class="vote-count">
 			<%= pluralize feed_item.votes, "vote" %>
 		</span>
-		<% if current_user && !feed_item.owned_by?(current_user)%>
-			<% if already_voted?(current_user, feed_item)%>
-			<span class="voting-option inactive">
-				<%= link_to "haha", "#", class:"haha"%>
-				<span> | </span>
-				<%= link_to "meh", "#", class:"meh"%>
-			</span>
-			<% else %>
-				<span class="voting-option">
-					<%= link_to "haha", vote_post_path(feed_item, value:1), method: :post, remote: true, class:"haha"%>
-					<span class="vertical-divider"> | </span>
-					<%= link_to "meh", vote_post_path(feed_item, value:-1), method: :post, remote: true, class:"meh"%>
-				</span>
-			<% end %>
-		<% end %>	
+		<% @value = current_user ? already_voted?(current_user, feed_item) : 0%>
+		<span class="voting-option">
+			<%= link_to "haha", vote_post_path(feed_item, value:1), method: :post, remote: true, class:"haha" + (@value == 1 ? ' inactive' : '')%>
+			<span class="vertical-divider"> | </span>
+			<%= link_to "meh", vote_post_path(feed_item, value:-1), method: :post, remote: true, class:"meh" + (@value == -1 ? ' inactive' : '')%>
+		</span>
 	</div>
 </article>
