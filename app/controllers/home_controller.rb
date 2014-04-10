@@ -4,21 +4,21 @@ class HomeController < ApplicationController
 		if signed_in?
 			@post = current_user.posts.build
 		end
-		@feed_items = Post.by_votes_freshest.page(params[:page]).per_page(3)
+		@feed_items = Post.by_votes_freshest.page(params[:page]).per_page(5)
 	end
 
 	def haha
 		if signed_in?
 			@post = current_user.posts.build
 		end
-		@feed_items = Post.by_votes_up.page(params[:page]).per_page(3)
+		@feed_items = Post.by_votes_up.page(params[:page]).per_page(5)
 	end
 
 	def meh
 		if signed_in?
 			@post = current_user.posts.build
 		end
-		@feed_items = Post.by_votes_down.page(params[:page]).per_page(3)
+		@feed_items = Post.by_votes_down.page(params[:page]).per_page(5)
 	end
 
 	def access_denied
