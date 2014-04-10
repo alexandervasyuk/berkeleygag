@@ -28,7 +28,10 @@
 
 #posts > .feed_item:first-child {
 	border-top: none;
-	margin-top:0px;
+
+	.title {
+		margin-top:0px;
+	}
 }
 
 .feed_item {
@@ -41,6 +44,10 @@
 		font-size: 1.7em;
 		font-weight:bold;
 		letter-spacing: -1px;
+
+		a {
+			text-decoration:none;
+		}
 	}
 
 	.timestamp {

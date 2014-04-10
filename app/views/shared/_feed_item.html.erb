@@ -1,6 +1,6 @@
 <article id="<%= feed_item.id %>" class="feed_item">
 	<div class="title">
-	<%= feed_item.title %>
+	<%= link_to feed_item.title, feed_item %>
 	</div>
 	<span style="float:right; position:relative; top:-20px;">	
 	<%if current_user?(feed_item.user)%>

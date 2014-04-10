@@ -27,6 +27,15 @@ class PostsController < ApplicationController
 		redirect_to :back
 	end
 
+	def show
+		begin
+			@post = Post.find(params[:id])
+		rescue
+			flash[:error] = "User does not exist"
+      		redirect_to root_path
+		end
+	end
+
 	def vote
 		if PostVote.where(user_id:current_user.id, post_id:params[:id]).any?
 			@vote = PostVote.where(user_id:current_user.id, post_id:params[:id])[0]
