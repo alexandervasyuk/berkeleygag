@@ -26,12 +26,20 @@
       	  <% if signed_in? %>
 			<%= content_tag(:li, link_to("#{current_user.email}", user_path(current_user))) %>
 			<%= tag(:li, class: "divider-vertical")%>
+			<li><%= link_to "Terms", terms_path %></li>
+			<%= tag(:li, class: "divider-vertical")%>
+			<li><%= link_to "About", about_path %></li>
+			<%= tag(:li, class: "divider-vertical")%>
 			<%= content_tag(:li, link_to("Sign out", signout_path))%>
           <% else %>
           	<%= tag(:li, class: "divider-vertical")%>
             <%= content_tag(:li, link_to("Sign up", signup_path))%>
             <%= tag(:li, class: "divider-vertical")%>
             <%= content_tag(:li, link_to("Sign in", signin_path))%>
+            <%= tag(:li, class: "divider-vertical")%>
+            <li><%= link_to "About", about_path %></li>
+            <%= tag(:li, class: "divider-vertical")%>
+            <li><%= link_to "Terms", terms_path %></li>
           <% end %>
       </ul>
     </div><!-- /.navbar-collapse -->
