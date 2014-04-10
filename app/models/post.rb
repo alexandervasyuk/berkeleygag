@@ -18,14 +18,14 @@ class Post < ActiveRecord::Base
 		select('posts.*, coalesce(SUM(value), 0) as votes').
 		joins('left join post_votes on post_id=posts.id').
 		group('posts.id').
-		order('votes desc')
+		order('votes desc, id desc')
 	end
 
 	def self.by_votes_down
 		select('posts.*, coalesce(SUM(value), 0) as votes').
 		joins('left join post_votes on post_id=posts.id').
 		group('posts.id').
-		order('votes asc')
+		order('votes asc, id desc')
 	end
 
 	def self.by_votes_freshest
