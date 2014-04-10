@@ -31,7 +31,7 @@ class PostsController < ApplicationController
 		begin
 			@post = Post.find(params[:id])
 		rescue
-			flash[:error] = "User does not exist"
+			flash[:error] = "Post does not exist"
       		redirect_to root_path
 		end
 	end
