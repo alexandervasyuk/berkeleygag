@@ -15,14 +15,16 @@ class Post < ActiveRecord::Base
 	end
 
 	def self.by_votes_up
-		select('posts.*, coalesce(value, 0) as votes').
+		select('posts.*, coalesce(SUM(value), 0) as votes').
 		joins('left join post_votes on post_id=posts.id').
+		group('posts.id').
 		order('votes desc')
 	end
 
 	def self.by_votes_down
-		select('posts.*, coalesce(value, 0) as votes').
+		select('posts.*, coalesce(SUM(value), 0) as votes').
 		joins('left join post_votes on post_id=posts.id').
+		group('posts.id').
 		order('votes asc')
 	end
 
