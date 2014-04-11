@@ -36,5 +36,5 @@ Berkeleygag::Application.configure do
   config.active_support.deprecation = :stderr
 
   #ActionMailer
-  config.action_mailer.default_url_options = { :host => 'http://www.berkeleygag.com' }
+  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
 end

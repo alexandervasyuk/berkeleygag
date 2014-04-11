@@ -66,5 +66,20 @@ Berkeleygag::Application.configure do
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
 
   #ActionMailer
-  config.action_mailer.default_url_options = { :host => 'http://www.berkeleygag.com' }
+  config.action_mailer.default_url_options = { :host => 'http://berkeleygag.com' }
+
+  #These settings are for the sending out email for active admin and consequently the   devise mailer
+  ActionMailer::Base.delivery_method = :smtp
+  ActionMailer::Base.perform_deliveries = true
+  ActionMailer::Base.raise_delivery_errors = true
+  ActionMailer::Base.smtp_settings = 
+  {
+    :address            => 'smtp.sendgrid.net',
+    :port               => 587,
+    :authentication     => :plain,
+    :user_name          => ENV['app23413987@heroku.com'],
+    :password           => ENV['yomv0kbg'],
+    :domain             => 'heroku.com',
+    :enable_starttls_auto => true
+  }
 end

@@ -36,7 +36,7 @@ Berkeleygag::Application.configure do
   config.assets.debug = true
 
   #ActionMailer
-  config.action_mailer.default_url_options = { :host => 'http://www.berkeleygag.com' }
+  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
 
 
   #These settings are for the sending out email for active admin and consequently the   devise mailer
@@ -47,6 +47,7 @@ Berkeleygag::Application.configure do
   {
     :address            => 'smtp.gmail.com',
     :port               => 587,
+    :domain             => 'gmail.com', #you can also use google.com
     :authentication     => :plain,
     :user_name          => 'berkeleygag@gmail.com',
     :password           => 'Rp78vq12'
