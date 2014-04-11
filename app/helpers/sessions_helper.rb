@@ -24,7 +24,7 @@ module SessionsHelper
     unless current_user.confirmation_code == "Verified"
       respond_to do |f|
         f.html 
-        f.js {render js:"alert('Please verify your account first');$('#post_title').val('');"}
+        f.js {render js:"alert('Please verify your account first. You should have received an email from BerkeleyGag. Just in case, check your spam folder.');$('#post_title').val('');"}
       end
     end
   end
