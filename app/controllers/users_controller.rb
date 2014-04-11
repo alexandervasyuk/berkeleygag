@@ -10,7 +10,7 @@ class UsersController < ApplicationController
 		if @user.save
 			session[:user_id] = @user.id
 			UserMailer.confirm(@user).deliver
-			flash[:success] = "Nice, bro. To gain full priviliges, check your email"
+			flash[:success] = "Nice, bro. To gain full priviliges, check your email. It might be in the spam folder."
 			redirect_to root_path
 		else 
 			flash.now[:error] = "Invalid input bro, you ought to be a berkeley student"
