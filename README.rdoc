@@ -3,7 +3,9 @@
 BerkeleyGag is an attempt to capture the functionality of 9GAG but exclusively for UC Berkeley students. Originally designed to give access only to berkeley students, BerkeleyGag now welcomes anyone who wants to sign up.
 
 If you only wish to look around you can use this email and password:
+
 email: test@test.com
+
 password: bypassconfirmation
 
 Below I explain how various parts of the site fit together.
