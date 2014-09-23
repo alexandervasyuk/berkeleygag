@@ -124,7 +124,7 @@ The photos are stored in the Amazon S3 cloud storage. The uploading process is h
 
 In case any of the inputs are invalid, the page is not reloaded, instead you get an alert asking to provide a valid input.
 
-If the user uploads from a mobile device, often the orientation is landscape instead of portrait, the auto_orient methods rotate the image 90 degrees.
+If the user uploads from a mobile device, often the orientation is landscape instead of portrait, the auto_orient method rotates the image 90 degrees.
 
 ===Relevant files:
 app/controllers/posts_controller.rb - create, post_params methods
