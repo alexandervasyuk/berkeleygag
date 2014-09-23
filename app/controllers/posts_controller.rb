@@ -13,7 +13,7 @@ class PostsController < ApplicationController
 		else
 			respond_to do |f|
 				f.html do
-					flash[:error] = "Can not post without a valid title and a photo or link, bro"
+					flash[:error] = "Can not post without a valid title and a photo or link"
 					redirect_to :back
 				end
 				f.js
