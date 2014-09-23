@@ -11,11 +11,7 @@ Below I explain how various parts of the site fit together.
 I used the Behaviour Driven Development(BDD) workflow to build the site. This means that you can run rspec and cucumber tests and see that everything passes on your own system.
 
 To run the tests:
-<<<<<<< HEAD
-1. spork you can forgo this step, but your tests will run slower
-=======
 1. spork (you can forgo this step, but your tests will run slower)
->>>>>>> 32e8bbd592114213ded436b3f02451bf475f28ff
 2. cucumber features/
 3. rspec spec/
 
@@ -49,7 +45,7 @@ When the user is succesfully saved to the database, she is sent out an email to 
 ===Relevant files:
 app/models/user.rb - has_secure_password, validations, set_confimation_code methods
 
-app/contorllers/users_controller.rb - new, create, confirm actions
+app/controllers/users_controller.rb - new, create, confirm actions
 
 app/views/users/new.html.erb
 
@@ -105,7 +101,7 @@ rspec spec/views/users/edit.html.erb_spec.rb
 
 == Viewing your profile
 
-To view the reputation and manage what you have posted, the user can clicin on her email in the top of the navigation bar.
+To view the reputation and manage what she has posted, the user can click on her email at the top of the navigation bar.
 
 ===Relevant files:
 app/views/users/show.html.erb
@@ -122,9 +118,9 @@ A user can post either one of two ways:
 2. Creating a meme on memeful.com and copy-pasting a link into the link input form. 
 Both ways require the user to provide a title of at most 60 chatacters, which has a convenience-counter at the top right of the input form. 
 
-The photos are stored in the Amazon S3 cloud storage. The uploding process is handled by Rmagick gem. While the image is uplaoding, a blue progress bar appears to notify how much is left, this is a bootstrap3 feature, love it.
+The photos are stored in the Amazon S3 cloud storage. The uploding process is handled by the Rmagick gem. While the image is uplaoding, a blue progress bar appears to notify how much is left, this is a bootstrap3 feature, love it.
 
-In case any of the inputs are invalid, the page is not realoaded, instead you get an alert asking to provide a valid input.
+In case any of the inputs are invalid, the page is not reloaded, instead you get an alert asking to provide a valid input.
 
 If the user uploads from a mobile device, often the orientation is landscape instead of protrait, the auto_orient methods rotate the image 90 degrees.
 
@@ -148,9 +144,9 @@ rspec spec/views/posts/_post.html.erb_spec.rb
 Voting is done by the 'vote' action in the posts_controller. The logic is simple: if the vote exists - update it with however the user just voted, else build a new vote for the current_user. 
 
 ===Relevant files:
-app/controller/posts_controller.rb
+app/controllers/posts_controller.rb
 
-app/model/post.rb 
+app/models/post.rb 
 
 ===Appropriate tests:
 rspec spec/controllers/posts_controller_spec.rb
@@ -161,7 +157,7 @@ rspec spec/models/post_vote_spec.rb
 
 
 == Feed
-The feed is constructed from three partials: _feed_item.html.erb and _feed.html.erb, which can be found in the app/views/shared folder.
+The feed is constructed from two partials: _feed_item.html.erb and _feed.html.erb, which can be found in the app/views/shared folder.
 The feed can be sorted by 'freshest' which shows the newest posts, the most up-voted and down-voted.
 
 === Relevant files:
@@ -171,15 +167,19 @@ app/controllers/home_controller.rb - index, haha, mehe
 
 app/views/shared/_feed_item.html.erb
 
-app/views/shared/_feed_item.html.erb
+app/views/shared/_feed.html.erb
 
 ===Appropriate tests:
+rspec spec/models/post_spec.rb
+
+rspec spec/controllers/home_controller_spec.rb
+
 rspec spec/views/shared/_feed.html.erb_spec.rb
 
 rspec spec/views/shared/_feed_item.html.erb_spec.rb
 
 == Infinite scroll
-Infinite scroll is achieved by using will-paginate gem and some custom javascript that you can find in application.js Essentialy we check if the user scrolled past the visible documnet height and send and ajax request to the user to fetch more posts. This is handled by the will_paginate gem.
+Infinite scroll is achieved by using will-paginate gem and some custom javascript that you can find in application.js Essentialy I check if the user scrolled past the visible documnet height and send an ajax request to fetch more posts. This is handled by the will_paginate gem.
 
 ===Relevant files:
 
