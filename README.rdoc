@@ -32,11 +32,11 @@ From the signup page the request with the user data arrives to the 'create' acti
   2. for its uniqueness (case insensitive)
   3. for its format, according to /.+@.+\..+/i regular expression
 
-A note on this regular expression. I used to employ very convoluted regular expressions to test for email validation, but it turns out that if a user was so inclined she could bypass even the most complicated regex. Instead I believe it is better to send them an email with a confirmation link and deprive the new user of priviliges otherwise associated with the user who confirmed her email. For more on this make sure to check out: http://davidcel.is/blog/2012/09/06/stop-validating-email-addresses-with-regex/
+A note on this regular expression. I used to employ very convoluted regular expressions to test for email validation, but it turns out that if a user was so inclined she could bypass even the most complicated regex. Instead I believe it is better to send them an email with a confirmation link and deprive the new user of privileges otherwise associated with the user who confirmed her email. For more on this make sure to check out: http://davidcel.is/blog/2012/09/06/stop-validating-email-addresses-with-regex/
 
 The passwords are validated using 'has_secure_password' method. This requires us to have a password_digest attribute. Which I created earlier the migration 'create_users'.
 
-When the user is succesfully saved to the database, she is sent out an email to her address using UserMailer. Sometimes it ends up in the spam folder, I have not figured out how to fix that yet. -- use mailchimp? The email contains a confirmation link, that when clicked validates her email address with the database and allows the user to post and like photos. The inner workings of the confirmation processs look like this:
+When the user is successfully saved to the database, she is sent out an email to her address using UserMailer. Sometimes it ends up in the spam folder, I have not figured out how to fix that yet. -- use mailchimp? The email contains a confirmation link, that when clicked validates her email address with the database and allows the user to post and like photos. The inner workings of the confirmation process look like this:
 1. When a user is created, her new record contains a confirmation code
 2. This code is sent out to her email address
 3. When she clicks on the link, a request is sent to the server carrying a token - the confirmation code
@@ -60,7 +60,7 @@ rspec spec/models/user_spec.rb
 
 == Session management
 
-When a user lands on the /signin page a Login object is created. The user fills out the signin form with her email and password. The validation is mainly done by the User class, where the 'authenticate' method, provided by 'has_secure_password', hashes users input and compares it to the password_digest I store in the database. Upon a succesfull sign in a session is created that allows the user to interact with the application without having to authenticate on every request. The signout link at the top left corner destroys the current user's session.
+When a user lands on the /signin page a Login object is created. The user fills out the signin form with her email and password. The validation is mainly done by the User class, where the 'authenticate' method, provided by 'has_secure_password', hashes users input and compares it to the password_digest I store in the database. Upon a successful sign in a session is created that allows the user to interact with the application without having to authenticate on every request. The signout link at the top left corner destroys the current user's session.
 
 ===Relevant files:
 app/models/login.rb
@@ -116,13 +116,13 @@ rspec spec/views/users/show.html.erb_spec.rb
 A user can post either one of two ways: 
 1. Directly choosing a photo from her archives 
 2. Creating a meme on memeful.com and copy-pasting a link into the link input form. 
-Both ways require the user to provide a title of at most 60 chatacters, which has a convenience-counter at the top right of the input form. 
+Both ways require the user to provide a title of at most 60 characters, which has a convenience-counter at the top right of the input form. 
 
-The photos are stored in the Amazon S3 cloud storage. The uploding process is handled by the Rmagick gem. While the image is uplaoding, a blue progress bar appears to notify how much is left, this is a bootstrap3 feature, love it.
+The photos are stored in the Amazon S3 cloud storage. The uploading process is handled by the Rmagick gem. While the image is uploading, a blue progress bar appears to notify how much is left, this is a bootstrap3 feature, love it.
 
 In case any of the inputs are invalid, the page is not reloaded, instead you get an alert asking to provide a valid input.
 
-If the user uploads from a mobile device, often the orientation is landscape instead of protrait, the auto_orient methods rotate the image 90 degrees.
+If the user uploads from a mobile device, often the orientation is landscape instead of portrait, the auto_orient methods rotate the image 90 degrees.
 
 ===Relevant files:
 app/controllers/posts_controller.rb - create, post_params methods
@@ -179,15 +179,15 @@ rspec spec/views/shared/_feed.html.erb_spec.rb
 rspec spec/views/shared/_feed_item.html.erb_spec.rb
 
 == Infinite scroll
-Infinite scroll is achieved by using will-paginate gem and some custom javascript that you can find in application.js Essentialy I check if the user scrolled past the visible documnet height and send an ajax request to fetch more posts. This is handled by the will_paginate gem.
+Infinite scroll is achieved by using will-paginate gem and some custom javascript that you can find in application.js Essentially I check if the user scrolled past the visible document height and send an ajax request to fetch more posts. This is handled by the will_paginate gem.
 
 ===Relevant files:
 
 app/assets/javascripts/application.js
 
-== How do I deal with 404 and unauthorized requerests
+== How do I deal with 404 and unauthorized requests
 If the user tries to access some unknown page I catch this behaviour with 'match "*gibberish", to:"home#not_found"' in the routes.rb
-Also if a user tries to reach an unauthorized page, such as anonther user's page, her access will be denied as she is not the current user for that other user's profile. For this purpose I define 'AccessDenied' class which inherits from 'StandardError'.
+Also if a user tries to reach an unauthorized page, such as another user's page, her access will be denied as she is not the current user for that other user's profile. For this purpose I define 'AccessDenied' class which inherits from 'StandardError'.
 
 ===Relevant files:
 
