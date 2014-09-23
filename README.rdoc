@@ -11,7 +11,7 @@ Below I explain how various parts of the site fit together.
 I used the Behaviour Driven Development(BDD) workflow to build the site. This means that you can run rspec and cucumber tests and see that everything passes on your own system.
 
 To run the tests:
-1. start spork - you can forgo this step, but your tests will run slower
+1. spork (you can forgo this step, but your tests will run slower)
 2. cucumber features/
 3. rspec spec/
 
@@ -32,7 +32,7 @@ From the signup page the request with the user data arrives to the 'create' acti
   2. for its uniqueness (case insensitive)
   3. for its format, according to /.+@.+\..+/i regular expression
 
-A note on this regular expression. I used to employ very convoluted regular expressions to test for email validation, but it turns out that if a user was so inclined she could bypass even the most complicated regex. Instead I believe it is better to send them an email with a confirmation link and deprive of the new user of priviliges otherwise associated with the user who confirmed her email. For more on this make sure to check out: http://davidcel.is/blog/2012/09/06/stop-validating-email-addresses-with-regex/
+A note on this regular expression. I used to employ very convoluted regular expressions to test for email validation, but it turns out that if a user was so inclined she could bypass even the most complicated regex. Instead I believe it is better to send them an email with a confirmation link and deprive the new user of priviliges otherwise associated with the user who confirmed her email. For more on this make sure to check out: http://davidcel.is/blog/2012/09/06/stop-validating-email-addresses-with-regex/
 
 The passwords are validated using 'has_secure_password' method. This requires us to have a password_digest attribute. Which I created earlier the migration 'create_users'.
 
@@ -42,56 +42,74 @@ When the user is succesfully saved to the database, she is sent out an email to 
 3. When she clicks on the link, a request is sent to the server carrying a token - the confirmation code
 4. If the two match, her confirmation code is change to "Verified" and she becomes a verified user.
 
-Relevant files:
+===Relevant files:
 app/models/user.rb - has_secure_password, validations, set_confimation_code methods
+
 app/contorllers/users_controller.rb - new, create, confirm actions
+
 app/views/users/new.html.erb
 
-Appropriate test:
+===Appropriate test:
 rspec spec/controllers/users_controller_spec.rb
+
 rspec spec/mailers/user_mailer_spec.rb
+
 rspec spec/views/users/new.html.erb_spec.rb
+
 rspec spec/models/user_spec.rb
 
 == Session management
 
 When a user lands on the /signin page a Login object is created. The user fills out the signin form with her email and password. The validation is mainly done by the User class, where the 'authenticate' method, provided by 'has_secure_password', hashes users input and compares it to the password_digest I store in the database. Upon a succesfull sign in a session is created that allows the user to interact with the application without having to authenticate on every request. The signout link at the top left corner destroys the current user's session.
 
-Relevant files:
+===Relevant files:
 app/models/login.rb
+
 app/controllers/sessions_controller.rb
+
 app/views/sessions/new.html.erb
 
-Appropriate tests:
+===Appropriate tests:
 rspec spec/views/sessions/new.html.erb_spec.rb
+
 rspec spec/controllers/sessions_controller_spec.rb
+
 rspec spec/helpers/sessions_helper_spec.rb
+
 rspec spec/models/user_spec.rb
+
 rspec spec/models/login_spec.rb
 
 == Update settings
 Once logged in, the user can click on his email to reach the 'edit your account' link. After clicking the link, the user is presented with a standard mechanism of updating her information.
 
-Relevant files:
+===Relevant files:
 app/models/user.rb
+
 app/controller/users_controller.rb - edit, update actions
+
 app/views/users/show.html.erb
+
 app/views/users/edit.html.erb
 
-Appropriate tests:
+===Appropriate tests:
 rspec spec/controllers/users_controller_spec.rb
+
 rspec spec/models/user_spec.rb
+
 rspec spec/views/users/edit.html.erb_spec.rb
 
 == Viewing your profile
 
 To view the reputation and manage what you have posted, the user can clicin on her email in the top of the navigation bar.
 
-Relevant files:
+===Relevant files:
 app/views/users/show.html.erb
+
 app/views/shared/_feed_item.html.erb
 
-Appropriate tests
+
+===Appropriate tests
 rspec spec/views/users/show.html.erb_spec.rb
 
 == Posting
@@ -106,44 +124,69 @@ In case any of the inputs are invalid, the page is not realoaded, instead you ge
 
 If the user uploads from a mobile device, often the orientation is landscape instead of protrait, the auto_orient methods rotate the image 90 degrees.
 
-Relevant files:
+===Relevant files:
 app/controllers/posts_controller.rb - create, post_params methods
+
 app/models/post.rb - mount_uploader
+
 app/uploaders/photo_uploader.rb - auto_orient method
+
 Gemfile - rmagick, carrierwave gems
 
-Appropriate tests:
+===Appropriate tests:
 rspec spec/models/post_spec.rb
+
 rspec spec/controllers/posts_controller_spec.rb
+
 rspec spec/views/posts/_post.html.erb_spec.rb
 
 == Voting
 Voting is done by the 'vote' action in the posts_controller. The logic is simple: if the vote exists - update it with however the user just voted, else build a new vote for the current_user. 
 
-Relevant files:
+===Relevant files:
+app/controller/posts_controller.rb
 
-Appropriate tests:
+app/model/post.rb 
+
+===Appropriate tests:
 rspec spec/controllers/posts_controller_spec.rb
+
 rspec spec/models/post_spec.rb
+
 rspec spec/models/post_vote_spec.rb
+
 
 == Feed
 The feed is constructed from three partials: _feed_item.html.erb and _feed.html.erb, which can be found in the app/views/shared folder.
+The feed can be sorted by 'freshest' which shows the newest posts, the most up-voted and down-voted.
 
-Appropriate tests:
+=== Relevant files:
+app/models/post.rb - by_votes_up, by_votes_down, by_votes_freshest
+
+app/controllers/home_controller.rb - index, haha, mehe
+
+app/views/shared/_feed_item.html.erb
+
+app/views/shared/_feed_item.html.erb
+
+===Appropriate tests:
 rspec spec/views/shared/_feed.html.erb_spec.rb
+
 rspec spec/views/shared/_feed_item.html.erb_spec.rb
 
 == Infinite scroll
 Infinite scroll is achieved by using will-paginate gem and some custom javascript that you can find in application.js Essentialy we check if the user scrolled past the visible documnet height and send and ajax request to the user to fetch more posts. This is handled by the will_paginate gem.
 
-Relevant files:
+===Relevant files:
+
 app/assets/javascripts/application.js
 
 == How do I deal with 404 and unauthorized requerests
 If the user tries to access some unknown page I catch this behaviour with 'match "*gibberish", to:"home#not_found"' in the routes.rb
 Also if a user tries to reach an unauthorized page, such as anonther user's page, her access will be denied as she is not the current user for that other user's profile. For this purpose I define 'AccessDenied' class which inherits from 'StandardError'.
 
-Relevant files:
+===Relevant files:
+
 config/routes.rb
+
 lib/access_denied.rb
