@@ -10,7 +10,6 @@ describe "shared/_post_form.html.erb" do
 	it "has photo upload field" do
 		expect(rendered).to have_selector("#post_photo")
 	end
-	it "has url field"
 	it "should have title field" do
 		expect(rendered).to have_selector("input#post_title")
 	end

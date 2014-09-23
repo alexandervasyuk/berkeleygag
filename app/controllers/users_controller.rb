@@ -10,10 +10,11 @@ class UsersController < ApplicationController
 		if @user.save
 			session[:user_id] = @user.id
 			UserMailer.confirm(@user).deliver
-			flash[:success] = "Nice, bro. To gain full priviliges, check your email. It might be in the spam folder."
+
+			flash[:success] = "To gain full priviliges, check your email. It might be in the spam folder."
 			redirect_to root_path
 		else 
-			flash.now[:error] = "Invalid input bro, you ought to be a berkeley student"
+			flash.now[:error] = "Sorry, something went wrong. Please check for errors."
 			render :new
 		end
 	end
@@ -22,10 +23,10 @@ class UsersController < ApplicationController
 		user = User.find_by_confirmation_code(params[:token])
 
 		if user && user.confirm(params[:token])
-			flash[:success] = "You account is verified. You can now post"
+			flash[:success] = "You account is verified. You can now post."
 			redirect_to root_path
 		else
-			flash[:error] = "Why you contriving bro"
+			flash[:error] = "Sorry, something went wrong."
 			redirect_to root_path
 		end
 	end

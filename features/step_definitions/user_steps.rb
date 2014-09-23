@@ -17,7 +17,7 @@ Then /^I should be partially registered in the application with "(.*?)"$/ do |em
 end
 
 Then /^I should be logged in as "(.*?)"$/ do |email|
-  expect(page).to have_content("Welcome, #{email}")
+  expect(page).to have_content("To gain full priviliges, check your email")
 end
 
 Then /^I should receive confirmation email to "(.*?)"$/ do |email|
@@ -56,7 +56,7 @@ When(/^I fill out the form with invalid data$/) do
   visit("/signup")
   fill_in "user_email", with:"user@gmail.com"
   fill_in "user_password", with:"pass"
-  fill_in "user_password_confirmation", with:"pass"
+  fill_in "user_password_confirmation", with:"pass1"
   click_button "Sign up"
 end
 
@@ -69,7 +69,7 @@ Then(/^I should be presented with register form again$/) do
 end
 
 Then /^I should know what went wrong$/ do
-  expect(page).to have_selector("div.alert.alert-error", text:"Invalid")
+  expect(page).to have_selector("div.alert.alert-danger", text:"something went wrong")
 end
 
 
@@ -145,7 +145,7 @@ When /^I visit "(.*?)" profile$/ do |email|
 end
 
 Then /^I should see (\d+) "(.*?)" posts$/ do |num, email|
-  expect(page).to have_selector(".post", count:3)
+  expect(page).to have_selector(".feed_item", count:3)
 end
 
 When /^I try to access "(.*?)"$/ do |email|

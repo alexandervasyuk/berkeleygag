@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
 			session[:user_id] = @login.authenticate
 			redirect_to root_url
 		else
-			flash.now[:error] = "Invalid email/password combination, bro."
+			flash.now[:error] = "Invalid email/password combination."
 			render :new
 		end
 

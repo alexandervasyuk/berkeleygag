@@ -28,7 +28,7 @@ Then /^I should be prompted with signin form again$/ do
 end
 
 Then /^I should see my errors$/ do
-  expect(page).to have_selector("div.alert.alert-error", text:"Invalid email/password combination")
+  expect(page).to have_selector("div.alert.alert-danger", text:"Invalid email/password combination")
 end
 # Authentication - logout
 When /^I click on signout$/ do
@@ -36,7 +36,6 @@ When /^I click on signout$/ do
 end
 
 Then /^I am logged out$/ do
-  expect(page).not_to have_content("Welcome")
   expect(page).to have_link("Sign in")
 end
 

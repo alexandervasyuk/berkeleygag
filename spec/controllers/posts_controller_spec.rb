@@ -6,7 +6,8 @@ describe PostsController do
 
 		let(:params) do
 			{
-				"title"=>"Some title"
+				"title"=>"Some title",
+				"remote_photo_url"=>"http://i.memeful.com/meme/something.jpg"
 			}
 		end
 		let!(:user) {create(:user, confirmation_code:"Verified")}
@@ -19,13 +20,16 @@ describe PostsController do
 
 		it "sends build to current_user.posts" do
 			controller.current_user.posts.should_receive(:build).with(params)
+			@request.env['HTTP_REFERER'] = root_path
 			post :create, post:params
 		end
 		it "sends save message to post instance" do
 			posting.should_receive(:save)
+			@request.env['HTTP_REFERER'] = root_path
 			post :create, post:params
 		end
 		it "should assign post instance variable" do
+			@request.env['HTTP_REFERER'] = root_path
 			post :create, post: params
 			expect(assigns[:post]).not_to be_nil
 		end
@@ -37,6 +41,7 @@ describe PostsController do
 			end
 
 			it "redirects to root url" do
+				@request.env['HTTP_REFERER'] = root_path
 				post :create, post: params
 				expect(response).to redirect_to root_path
 			end
@@ -54,6 +59,7 @@ describe PostsController do
 
 		it "sends find" do
 			Post.should_receive(:find).with(post.id.to_s)
+			@request.env['HTTP_REFERER'] = 'http://localhost:3000'
 			delete :destroy, id:post.id
 		end
 
@@ -64,10 +70,12 @@ describe PostsController do
 
 			it "sends destroy msg" do
 				post.should_receive(:destroy)
+				@request.env['HTTP_REFERER'] = root_path
 				delete :destroy, id:post.id
 			end
 
 			it "redirect_to users path" do
+				@request.env['HTTP_REFERER'] = user_path(user)
 				delete :destroy, id:post.id
 				expect(response).to redirect_to user_path(user)
 			end

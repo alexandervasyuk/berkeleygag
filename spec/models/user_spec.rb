@@ -14,12 +14,6 @@ describe User do
 
 		it { should validate_presence_of(:email) }
 		it { should validate_uniqueness_of(:email) }
-
-		it "is invalid when email is invalid" do
-			@params[:email] = 'joe@gmail.com'
-			user = User.new(@params)
-			expect(user.valid?).to be_false
-		end
 	end
 
 	it "is an ActiveRecord model" do

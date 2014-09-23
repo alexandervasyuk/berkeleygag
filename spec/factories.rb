@@ -7,6 +7,7 @@ FactoryGirl.define do
 
   factory :post do
     sequence(:title) { |n| "Some title#{n}" }
+    photo {  Rack::Test::UploadedFile.new('spec/photos/test.png', 'image/png') }
     user
   end
 

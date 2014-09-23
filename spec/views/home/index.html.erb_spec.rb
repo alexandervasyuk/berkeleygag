@@ -5,6 +5,7 @@ describe "home/index.html.erb" do
 	context "a user is not signed in" do
 		before :each do
 			view.stub(:signed_in?).and_return(false)
+			assign(:feed_items, Post.by_votes_freshest.page(params[:page]).per_page(3))
 			render
 		end
 		it "does not have the post form" do
@@ -21,6 +22,7 @@ describe "home/index.html.erb" do
 		before :each do
 			view.stub(:signed_in?).and_return(true)
 			assign(:post, post)
+			assign(:feed_items, Post.by_votes_freshest.page(params[:page]).per_page(3))
 			render 
 		end
 		it "has post form" do

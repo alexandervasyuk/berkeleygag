@@ -11,7 +11,6 @@ describe "posts/_post.html.erb" do
 	it "should have title" do
 		expect(rendered).to have_content(post.title)
 	end
-	it "should have photo"
 
 	context "user is the owner" do
 		it "should have delete link" do

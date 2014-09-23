@@ -9,7 +9,7 @@ describe "shared/_feed.html.erb" do
 	end
 
 	it "has feed" do
-		expect(rendered).to have_selector(".posts")
+		expect(rendered).to have_selector("#posts")
 	end
 	it "should have two feed items" do
 		expect(rendered).to have_selector(".feed_item", count:1)
