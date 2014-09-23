@@ -11,7 +11,7 @@ Below I explain how various parts of the site fit together.
 I used the Behaviour Driven Development(BDD) workflow to build the site. This means that you can run rspec and cucumber tests and see that everything passes on your own system.
 
 To run the tests:
-1. spork (you can forgo this step, but your tests will run slower)
+1. spork you can forgo this step, but your tests will run slower
 2. cucumber features/
 3. rspec spec/
 
@@ -32,9 +32,9 @@ From the signup page the request with the user data arrives to the 'create' acti
   2. for its uniqueness (case insensitive)
   3. for its format, according to /.+@.+\..+/i regular expression
 
-A note on this regular expression. I used to employ very convoluted regular expressions to test for email validation, but it turns out that if a user was so inclined she could bypass even the most complicated regex. Instead I believe it is better to send them an email with a confirmation link and deprive the new user of priviliges otherwise associated with the user who confirmed her email. For more on this make sure to check out: http://davidcel.is/blog/2012/09/06/stop-validating-email-addresses-with-regex/
+A note on this regular expression. I used to employ very convoluted regular expressions to test for email validation, but it turns out that if a user was so inclined she could bypass even the most complicated regex. Instead I believe it is better to send them an email with a confirmation link and deprive of the new user of priviliges otherwise associated with the user who confirmed her email. For more on this make sure to check out: http://davidcel.is/blog/2012/09/06/stop-validating-email-addresses-with-regex/
 
-The passwords are validated using 'has_secure_password' method. This requires us to have a password_digest attribute. Which I created earlier in the migration 'create_users'.
+The passwords are validated using 'has_secure_password' method. This requires us to have a password_digest attribute. Which I created earlier the migration 'create_users'.
 
 When the user is succesfully saved to the database, she is sent out an email to her address using UserMailer. Sometimes it ends up in the spam folder, I have not figured out how to fix that yet. -- use mailchimp? The email contains a confirmation link, that when clicked validates her email address with the database and allows the user to post and like photos. The inner workings of the confirmation processs look like this:
 1. When a user is created, her new record contains a confirmation code
@@ -42,12 +42,12 @@ When the user is succesfully saved to the database, she is sent out an email to 
 3. When she clicks on the link, a request is sent to the server carrying a token - the confirmation code
 4. If the two match, her confirmation code is change to "Verified" and she becomes a verified user.
 
-===Relevant files:
+Relevant files:
 app/models/user.rb - has_secure_password, validations, set_confimation_code methods
 app/contorllers/users_controller.rb - new, create, confirm actions
 app/views/users/new.html.erb
 
-===Appropriate test:
+Appropriate test:
 rspec spec/controllers/users_controller_spec.rb
 rspec spec/mailers/user_mailer_spec.rb
 rspec spec/views/users/new.html.erb_spec.rb
